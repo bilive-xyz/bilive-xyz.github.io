@@ -1,0 +1,800 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python,爬虫," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="什么是Python?Python 是一门优雅、明确、简单的编程语言，拥有丰富和强大的库，适合编写脚本与进行数据分析什么是爬虫？
+
+
+网络爬虫（又被称为网页蜘蛛，网络机器人，在 FOAF 社区中间，更经常的称为网页追逐者），是一种按照一定的规则，自动地抓取万维网信息的程序或者脚本。另外一些不常使用的名字还有蚂蚁、自动索引、模拟程序或者蠕虫。——百度百科
+
+预备知识
+
+
+Python基础知识正则表达式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python爬虫(一) -- 入门">
+<meta property="og:url" content="http://bilive.xyz/2017/01/13/python-pacong-1/index.html">
+<meta property="og:site_name" content="Surface HexoBlog">
+<meta property="og:description" content="什么是Python?Python 是一门优雅、明确、简单的编程语言，拥有丰富和强大的库，适合编写脚本与进行数据分析什么是爬虫？
+
+
+网络爬虫（又被称为网页蜘蛛，网络机器人，在 FOAF 社区中间，更经常的称为网页追逐者），是一种按照一定的规则，自动地抓取万维网信息的程序或者脚本。另外一些不常使用的名字还有蚂蚁、自动索引、模拟程序或者蠕虫。——百度百科
+
+预备知识
+
+
+Python基础知识正则表达式">
+<meta property="og:updated_time" content="2017-01-13T13:14:02.156Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python爬虫(一) -- 入门">
+<meta name="twitter:description" content="什么是Python?Python 是一门优雅、明确、简单的编程语言，拥有丰富和强大的库，适合编写脚本与进行数据分析什么是爬虫？
+
+
+网络爬虫（又被称为网页蜘蛛，网络机器人，在 FOAF 社区中间，更经常的称为网页追逐者），是一种按照一定的规则，自动地抓取万维网信息的程序或者脚本。另外一些不常使用的名字还有蚂蚁、自动索引、模拟程序或者蠕虫。——百度百科
+
+预备知识
+
+
+Python基础知识正则表达式">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6370918075792885000',
+      author: 'Surface'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://bilive.xyz/2017/01/13/python-pacong-1/"/>
+
+
+
+
+
+  <title> Python爬虫(一) -- 入门 | Surface HexoBlog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Surface HexoBlog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description">攻克从入门到放弃系列</h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://bilive.xyz/2017/01/13/python-pacong-1/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Surface">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/uploads/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Surface HexoBlog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Surface HexoBlog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                Python爬虫(一) -- 入门
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-13T19:22:07+08:00">
+                2017-01-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/01/13/python-pacong-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/13/python-pacong-1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1>什么是Python?</h1><br>Python 是一门优雅、明确、简单的编程语言，拥有丰富和强大的库，适合编写脚本与进行数据分析<br><br><h1>什么是爬虫？</h1>
+
+<blockquote>
+<p>网络爬虫（又被称为网页蜘蛛，网络机器人，在 FOAF 社区中间，更经常的称为网页追逐者），是一种按照一定的规则，自动地抓取万维网信息的程序或者脚本。另外一些不常使用的名字还有蚂蚁、自动索引、模拟程序或者蠕虫。——百度百科</p>
+</blockquote>
+<h1>预备知识</h1>
+
+<blockquote>
+<p>Python基础知识<br>正则表达式<br>re模块的使用<br>XPath  </p>
+</blockquote>
+<a id="more"></a>
+<p></p><h1>基础知识</h1><br>爬虫爬取流程无非是：获取网页&gt;&gt;&gt;&gt;网页源码&gt;&gt;&gt;&gt;正则提取&gt;&gt;&gt;&gt;需要的内容<p></p>
+<p></p><h3>正则表达式</h3><br>Python 自1.5版本起增加了re 模块，它提供 Perl 风格的正则表达式模式。<br>re 模块使 Python 语言拥有全部的正则表达式功能。<br>想要学好爬虫，正则表达式是必需的，但又不是必须的，因为在爬虫里，除了要知道：<p></p>
+<blockquote>
+<p>用\d匹配数字<br>用.匹配任意字符<br>用\w匹配单词字符[A-Za-z0-9]<br>用\s匹配一个空格<br>用*表示任意个数字符<br>用+表示至少一个字符<br>用？匹配前一个字符0次或1次</p>
+</blockquote>
+<p>还需要知道<code>(.*?)</code>就行了。<br>在html网页中，我们所需的内容一般是被某些标签包围的，如果能保证找到我们需要的内容左右的标签（并且他们是独一无二的），那么我们很容易写出一个正则表达式：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;xxx&gt;(.*?)&lt;/xxx&gt;</div></pre></td></tr></table></figure>
+<p>把其中的内容提取出来。</p>
+<p></p><h3>re模块的使用</h3><br>Python正则模块re，主要用的函数是（re.S的意思是让”.”可以匹配换行符，不然有些标签头和尾是分几行的，就会匹配失败）<p></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">findall</span><span class="params">(pattern,str,re.S)</span></span></div></pre></td></tr></table></figure>
+<p>参数pattern是正则表达式，str是要匹配的字符串<br>findall把所有满足正则的内容提取出来，用于匹配满足某个条件的大量我们需要的内容。（比如所有的图片，所有的网址，所有的回复，所有的链接……）。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">search</span><span class="params">(pattern,str,re.S)</span></span></div></pre></td></tr></table></figure>
+<p>re.search函数会在字符串内查找模式匹配,只到找到第一个匹配然后返回，如果字符串没有匹配，则返回None。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">re.match(pattern, string, flags)</div></pre></td></tr></table></figure>
+<p>参数flags是标致位，用于控制正则表达式的匹配方式，如：是否区分大小写，多行匹配等等。</p>
+<p>re.match与re.search的区别：re.match只匹配字符串的开始，如果字符串开始不符合正则表达式，则匹配失败，函数返回None；而re.search匹配整个字符串，直到找到一个匹配。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">sub</span><span class="params">(pattern,str,replace)</span></span></div></pre></td></tr></table></figure>
+<p>sub的功能是替换，一般用于替换一个网页地址中的关键词，替换页码等。</p>
+<p>我们看个很简单的例子：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">import re</div><div class="line"></div><div class="line">#假设下面是一个源码，我想保存里面所有的链接</div><div class="line">text = '&lt;a href = "www.baidu.com"&gt;....'</div><div class="line">urls = re.findall('&lt;a href = (.*?)&gt;',text,re.S)</div><div class="line">for each in urls:</div><div class="line">    print each</div><div class="line"></div><div class="line">#假设我需要爬取当前网页的头部</div><div class="line">html = '''</div><div class="line">&lt;html&gt;</div><div class="line">&lt;title&gt;爬虫的基本知识&lt;/title&gt;</div><div class="line">&lt;body&gt;</div><div class="line">……</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div><div class="line">'''</div><div class="line">print re.search('&lt;title&gt;(.*?)&lt;/title&gt;',html,re.S).group(1)</div><div class="line">#这里group(1)表示第一个括号的内容，如果正则里面有多个括号，这里可以通过group(i)返回第i个空格里的内容</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#假设下面是一个贴吧的帖子地址，有很多页，每一页就是靠后面的pn=几来区分的，我们输出前10页的网址</div><div class="line">Pages = 'http://tieba.baidu.com/p/4342201077?pn=1'</div><div class="line">for i in range(10): </div><div class="line">    print re.sub('pn=\d','pn=%d'%i,Pages)</div></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="string">"www.baidu.com"</span></div><div class="line">爬虫的基本知识</div><div class="line">http:<span class="comment">//tieba.baidu.com/p/4342201077?pn=0</span></div><div class="line">http:<span class="comment">//tieba.baidu.com/p/4342201077?pn=1</span></div><div class="line">http:<span class="comment">//tieba.baidu.com/p/4342201077?pn=2</span></div><div class="line">http:<span class="comment">//tieba.baidu.com/p/4342201077?pn=3</span></div><div class="line">http:<span class="comment">//tieba.baidu.com/p/4342201077?pn=4</span></div><div class="line">http:<span class="comment">//tieba.baidu.com/p/4342201077?pn=5</span></div><div class="line">http:<span class="comment">//tieba.baidu.com/p/4342201077?pn=6</span></div><div class="line">http:<span class="comment">//tieba.baidu.com/p/4342201077?pn=7</span></div><div class="line">http:<span class="comment">//tieba.baidu.com/p/4342201077?pn=8</span></div><div class="line">http:<span class="comment">//tieba.baidu.com/p/4342201077?pn=9</span></div></pre></td></tr></table></figure>
+<p>想要详细了解，参考<a href="http://www.runoob.com/python/python-reg-expressions.html" target="_blank" rel="external">Python正则表达式</a></p>
+<p></p><h3>XPath</h3><br>XPath是一个树型的结构，比较符合“html”的层次结构,它让提取网页信息变得更加轻松。<p></p>
+<blockquote>
+<p>XPath即为XML路径语言，它是一种用来确定XML（标准通用标记语言的子集）文档中某部分位置的语言。XPath基于XML的树状结构，提供在数据结构树中找寻节点的能力。起初 XPath 的提出的初衷是将其作为一个通用的、介于XPointer与XSLT间的语法模型。但是 XPath 很快的被开发者采用来当作小型查询语言。</p>
+</blockquote>
+<p>网上有这么一种形象的解释，如果你提取信息就像让你找一栋建筑，那么正则就是告诉你建筑左边是什么，右边是什么，但是全国可能有很多都满足条件的，你找起来还是不方便。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">红房子(.*?)绿房子</div></pre></td></tr></table></figure>
+<p>XPath就是告诉你，这个建筑在北京市——海淀区——中关村——15号街——那栋黄色的建筑，你可以马上找到对应的建筑。如果一个地名只有一个地方有，那么你更可以简化成“中关村——15号街”。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//北京市/海淀区/中关村/15号街[@房子颜色=黄色]/text()</span></div><div class="line"><span class="comment">//中关村/15号[@房子颜色=黄色]/text()</span></div></pre></td></tr></table></figure>
+<p></p><h3>XPath语法</h3><br>XPath你只需要知道这些语法<p></p>
+<blockquote>
+<p>// 根节点<br>/ 下一层路径<br>[@XX=xx] 特定的标签</p>
+<p>/text() 以文本返回<br>/@para 返回参数</p>
+<p>string(.) 当前层的所有内容作为一个字符串输出<br>start-with(str) 所有以这个str开头的标签</p>
+</blockquote>
+<p>一个简单的例子：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">from lxml import etree</div><div class="line">html=</div><div class="line">'''</div><div class="line">&lt;div id="test1"&gt;content1&lt;/div&gt;</div><div class="line">&lt;div id="test2"&gt;content2&lt;/div&gt;</div><div class="line">&lt;div id="test3"&gt;content3&lt;/div&gt;</div><div class="line">'''</div><div class="line"></div><div class="line">selector = etree.HTML(html)</div><div class="line">content = selector.XPath('//div[start-with(@id,"test")]/text()')</div><div class="line">for each in content:</div><div class="line">    print each</div><div class="line"></div><div class="line">html1=</div><div class="line">'''</div><div class="line">&lt;div id="class"&gt;Hello,</div><div class="line">    &lt;font color=red&gt;my&lt;/font&gt;</div><div class="line">    world!</div><div class="line">&lt;div&gt;</div><div class="line">'''</div><div class="line"></div><div class="line">selector = etree.HTML(html)</div><div class="line">tmp = selector.XPath('//div[@id="class"]')[0]</div><div class="line">info = tmp.XPath('string(.)')</div><div class="line">content2 = info.replace('\n','')</div><div class="line">print content2</div></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">content</span> <span class="number">1</span></div><div class="line"><span class="attribute">content</span> <span class="number">2</span></div><div class="line"><span class="attribute">content</span> <span class="number">3</span></div><div class="line">Hello,        my        world!</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/02/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/01/13/python-pacong-1/"
+           data-title="Python爬虫(一) -- 入门" data-url="http://bilive.xyz/2017/01/13/python-pacong-1/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="Surface" />
+          <p class="site-author-name" itemprop="name">Surface</p>
+          <p class="site-description motion-element" itemprop="description">把时间浪费在美好的事物上</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">什么是Python?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">什么是爬虫？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">预备知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">4.0.1.</span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">4.0.2.</span> <span class="nav-text">re模块的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">4.0.3.</span> <span class="nav-text">XPath</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">4.0.4.</span> <span class="nav-text">XPath语法</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Surface</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  断简残篇 -
+  <a class="theme-link" href="#">
+    bilive.xyz
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"bilive"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js?v=5.1.0"></script>
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
