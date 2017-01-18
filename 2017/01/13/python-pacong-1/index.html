@@ -84,40 +84,31 @@
 
 
 
-<meta name="description" content="什么是Python?Python 是一门优雅、明确、简单的编程语言，拥有丰富和强大的库，适合编写脚本与进行数据分析什么是爬虫？
-
-
+<meta name="description" content="什么是Python?Python 是一门优雅、明确、简单的编程语言，拥有丰富和强大的库，适合编写脚本与进行数据分析
+什么是爬虫?
 网络爬虫（又被称为网页蜘蛛，网络机器人，在 FOAF 社区中间，更经常的称为网页追逐者），是一种按照一定的规则，自动地抓取万维网信息的程序或者脚本。另外一些不常使用的名字还有蚂蚁、自动索引、模拟程序或者蠕虫。——百度百科
 
 预备知识
-
-
-Python基础知识正则表达式">
+Python基础知识正则表达式re模">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python爬虫(一) -- 入门">
 <meta property="og:url" content="http://bilive.xyz/2017/01/13/python-pacong-1/index.html">
 <meta property="og:site_name" content="Surface HexoBlog">
-<meta property="og:description" content="什么是Python?Python 是一门优雅、明确、简单的编程语言，拥有丰富和强大的库，适合编写脚本与进行数据分析什么是爬虫？
-
-
+<meta property="og:description" content="什么是Python?Python 是一门优雅、明确、简单的编程语言，拥有丰富和强大的库，适合编写脚本与进行数据分析
+什么是爬虫?
 网络爬虫（又被称为网页蜘蛛，网络机器人，在 FOAF 社区中间，更经常的称为网页追逐者），是一种按照一定的规则，自动地抓取万维网信息的程序或者脚本。另外一些不常使用的名字还有蚂蚁、自动索引、模拟程序或者蠕虫。——百度百科
 
 预备知识
-
-
-Python基础知识正则表达式">
-<meta property="og:updated_time" content="2017-01-13T13:14:02.156Z">
+Python基础知识正则表达式re模">
+<meta property="og:updated_time" content="2017-01-14T03:22:41.403Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python爬虫(一) -- 入门">
-<meta name="twitter:description" content="什么是Python?Python 是一门优雅、明确、简单的编程语言，拥有丰富和强大的库，适合编写脚本与进行数据分析什么是爬虫？
-
-
+<meta name="twitter:description" content="什么是Python?Python 是一门优雅、明确、简单的编程语言，拥有丰富和强大的库，适合编写脚本与进行数据分析
+什么是爬虫?
 网络爬虫（又被称为网页蜘蛛，网络机器人，在 FOAF 社区中间，更经常的称为网页追逐者），是一种按照一定的规则，自动地抓取万维网信息的程序或者脚本。另外一些不常使用的名字还有蚂蚁、自动索引、模拟程序或者蠕虫。——百度百科
 
 预备知识
-
-
-Python基础知识正则表达式">
+Python基础知识正则表达式re模">
 
 
 
@@ -401,26 +392,23 @@ Python基础知识正则表达式">
       
 
       
-        <h1>什么是Python?</h1><br>Python 是一门优雅、明确、简单的编程语言，拥有丰富和强大的库，适合编写脚本与进行数据分析<br><br><h1>什么是爬虫？</h1>
-
-<blockquote>
+        <h2 id="什么是Python"><a href="#什么是Python" class="headerlink" title="什么是Python?"></a>什么是Python?</h2><p>Python 是一门优雅、明确、简单的编程语言，拥有丰富和强大的库，适合编写脚本与进行数据分析</p>
+<h2 id="什么是爬虫"><a href="#什么是爬虫" class="headerlink" title="什么是爬虫?"></a>什么是爬虫?</h2><blockquote>
 <p>网络爬虫（又被称为网页蜘蛛，网络机器人，在 FOAF 社区中间，更经常的称为网页追逐者），是一种按照一定的规则，自动地抓取万维网信息的程序或者脚本。另外一些不常使用的名字还有蚂蚁、自动索引、模拟程序或者蠕虫。——百度百科</p>
 </blockquote>
-<h1>预备知识</h1>
-
-<blockquote>
+<h2 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h2><blockquote>
 <p>Python基础知识<br>正则表达式<br>re模块的使用<br>XPath  </p>
 </blockquote>
 <a id="more"></a>
-<p></p><h1>基础知识</h1><br>爬虫爬取流程无非是：获取网页&gt;&gt;&gt;&gt;网页源码&gt;&gt;&gt;&gt;正则提取&gt;&gt;&gt;&gt;需要的内容<p></p>
-<p></p><h3>正则表达式</h3><br>Python 自1.5版本起增加了re 模块，它提供 Perl 风格的正则表达式模式。<br>re 模块使 Python 语言拥有全部的正则表达式功能。<br>想要学好爬虫，正则表达式是必需的，但又不是必须的，因为在爬虫里，除了要知道：<p></p>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><p>爬虫爬取流程无非是：获取网页&gt;&gt;&gt;&gt;网页源码&gt;&gt;&gt;&gt;正则提取&gt;&gt;&gt;&gt;需要的内容</p>
+<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><p>Python 自1.5版本起增加了re 模块，它提供 Perl 风格的正则表达式模式。<br>re 模块使 Python 语言拥有全部的正则表达式功能。<br>想要学好爬虫，正则表达式是必需的，但又不是必须的，因为在爬虫里，除了要知道：</p>
 <blockquote>
 <p>用\d匹配数字<br>用.匹配任意字符<br>用\w匹配单词字符[A-Za-z0-9]<br>用\s匹配一个空格<br>用*表示任意个数字符<br>用+表示至少一个字符<br>用？匹配前一个字符0次或1次</p>
 </blockquote>
 <p>还需要知道<code>(.*?)</code>就行了。<br>在html网页中，我们所需的内容一般是被某些标签包围的，如果能保证找到我们需要的内容左右的标签（并且他们是独一无二的），那么我们很容易写出一个正则表达式：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;xxx&gt;(.*?)&lt;/xxx&gt;</div></pre></td></tr></table></figure>
 <p>把其中的内容提取出来。</p>
-<p></p><h3>re模块的使用</h3><br>Python正则模块re，主要用的函数是（re.S的意思是让”.”可以匹配换行符，不然有些标签头和尾是分几行的，就会匹配失败）<p></p>
+<h3 id="re模块的使用"><a href="#re模块的使用" class="headerlink" title="re模块的使用"></a>re模块的使用</h3><p>Python正则模块re，主要用的函数是（re.S的意思是让”.”可以匹配换行符，不然有些标签头和尾是分几行的，就会匹配失败）</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">findall</span><span class="params">(pattern,str,re.S)</span></span></div></pre></td></tr></table></figure>
 <p>参数pattern是正则表达式，str是要匹配的字符串<br>findall把所有满足正则的内容提取出来，用于匹配满足某个条件的大量我们需要的内容。（比如所有的图片，所有的网址，所有的回复，所有的链接……）。</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">search</span><span class="params">(pattern,str,re.S)</span></span></div></pre></td></tr></table></figure>
@@ -435,7 +423,7 @@ Python基础知识正则表达式">
 <p>输出：</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="string">"www.baidu.com"</span></div><div class="line">爬虫的基本知识</div><div class="line">http:<span class="comment">//tieba.baidu.com/p/4342201077?pn=0</span></div><div class="line">http:<span class="comment">//tieba.baidu.com/p/4342201077?pn=1</span></div><div class="line">http:<span class="comment">//tieba.baidu.com/p/4342201077?pn=2</span></div><div class="line">http:<span class="comment">//tieba.baidu.com/p/4342201077?pn=3</span></div><div class="line">http:<span class="comment">//tieba.baidu.com/p/4342201077?pn=4</span></div><div class="line">http:<span class="comment">//tieba.baidu.com/p/4342201077?pn=5</span></div><div class="line">http:<span class="comment">//tieba.baidu.com/p/4342201077?pn=6</span></div><div class="line">http:<span class="comment">//tieba.baidu.com/p/4342201077?pn=7</span></div><div class="line">http:<span class="comment">//tieba.baidu.com/p/4342201077?pn=8</span></div><div class="line">http:<span class="comment">//tieba.baidu.com/p/4342201077?pn=9</span></div></pre></td></tr></table></figure>
 <p>想要详细了解，参考<a href="http://www.runoob.com/python/python-reg-expressions.html" target="_blank" rel="external">Python正则表达式</a></p>
-<p></p><h3>XPath</h3><br>XPath是一个树型的结构，比较符合“html”的层次结构,它让提取网页信息变得更加轻松。<p></p>
+<h3 id="XPath"><a href="#XPath" class="headerlink" title="XPath"></a>XPath</h3><p>XPath是一个树型的结构，比较符合“html”的层次结构,它让提取网页信息变得更加轻松。</p>
 <blockquote>
 <p>XPath即为XML路径语言，它是一种用来确定XML（标准通用标记语言的子集）文档中某部分位置的语言。XPath基于XML的树状结构，提供在数据结构树中找寻节点的能力。起初 XPath 的提出的初衷是将其作为一个通用的、介于XPointer与XSLT间的语法模型。但是 XPath 很快的被开发者采用来当作小型查询语言。</p>
 </blockquote>
@@ -443,7 +431,7 @@ Python基础知识正则表达式">
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">红房子(.*?)绿房子</div></pre></td></tr></table></figure>
 <p>XPath就是告诉你，这个建筑在北京市——海淀区——中关村——15号街——那栋黄色的建筑，你可以马上找到对应的建筑。如果一个地名只有一个地方有，那么你更可以简化成“中关村——15号街”。</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//北京市/海淀区/中关村/15号街[@房子颜色=黄色]/text()</span></div><div class="line"><span class="comment">//中关村/15号[@房子颜色=黄色]/text()</span></div></pre></td></tr></table></figure>
-<p></p><h3>XPath语法</h3><br>XPath你只需要知道这些语法<p></p>
+<h3 id="XPath语法"><a href="#XPath语法" class="headerlink" title="XPath语法"></a>XPath语法</h3><p>XPath你只需要知道这些语法</p>
 <blockquote>
 <p>// 根节点<br>/ 下一层路径<br>[@XX=xx] 特定的标签</p>
 <p>/text() 以文本返回<br>/@para 返回参数</p>
@@ -622,7 +610,7 @@ Python基础知识正则表达式">
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">什么是Python?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">什么是爬虫？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">预备知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">4.0.1.</span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">4.0.2.</span> <span class="nav-text">re模块的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">4.0.3.</span> <span class="nav-text">XPath</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">4.0.4.</span> <span class="nav-text">XPath语法</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Python"><span class="nav-number">1.</span> <span class="nav-text">什么是Python?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是爬虫"><span class="nav-number">2.</span> <span class="nav-text">什么是爬虫?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预备知识"><span class="nav-number">3.</span> <span class="nav-text">预备知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础知识"><span class="nav-number">4.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式"><span class="nav-number">4.1.</span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re模块的使用"><span class="nav-number">4.2.</span> <span class="nav-text">re模块的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XPath"><span class="nav-number">4.3.</span> <span class="nav-text">XPath</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XPath语法"><span class="nav-number">4.4.</span> <span class="nav-text">XPath语法</span></a></li></ol></li></ol></div>
             
 
           </div>
