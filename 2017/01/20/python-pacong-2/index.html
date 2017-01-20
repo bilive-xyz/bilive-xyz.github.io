@@ -1,0 +1,830 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python,爬虫," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="urllib模块在Python2.x中，urllib模块分为urllib和urllib2，而在Python3.x中，就只有一个urllib库了，urllib2模块在Python3已拆分更名为urllib.request和urllib.error。本文所用的版本为Python2.7。
+Python的urllib和urllib2模块都做与请求URL相关的操作，但它们提供的功能有所不同，其中最显著的差异">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python爬虫(二) -- urllib库的基本使用">
+<meta property="og:url" content="http://bilive.xyz/2017/01/20/python-pacong-2/index.html">
+<meta property="og:site_name" content="Surface HexoBlog">
+<meta property="og:description" content="urllib模块在Python2.x中，urllib模块分为urllib和urllib2，而在Python3.x中，就只有一个urllib库了，urllib2模块在Python3已拆分更名为urllib.request和urllib.error。本文所用的版本为Python2.7。
+Python的urllib和urllib2模块都做与请求URL相关的操作，但它们提供的功能有所不同，其中最显著的差异">
+<meta property="og:updated_time" content="2017-01-20T03:16:00.416Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python爬虫(二) -- urllib库的基本使用">
+<meta name="twitter:description" content="urllib模块在Python2.x中，urllib模块分为urllib和urllib2，而在Python3.x中，就只有一个urllib库了，urllib2模块在Python3已拆分更名为urllib.request和urllib.error。本文所用的版本为Python2.7。
+Python的urllib和urllib2模块都做与请求URL相关的操作，但它们提供的功能有所不同，其中最显著的差异">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6370918075792885000',
+      author: 'Surface'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://bilive.xyz/2017/01/20/python-pacong-2/"/>
+
+
+
+
+
+  <title> Python爬虫(二) -- urllib库的基本使用 | Surface HexoBlog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Surface HexoBlog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description">攻克从入门到放弃系列</h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://bilive.xyz/2017/01/20/python-pacong-2/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Surface">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/uploads/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Surface HexoBlog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Surface HexoBlog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                Python爬虫(二) -- urllib库的基本使用
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-20T09:42:57+08:00">
+                2017-01-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/01/20/python-pacong-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/20/python-pacong-2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="urllib模块"><a href="#urllib模块" class="headerlink" title="urllib模块"></a>urllib模块</h2><p>在Python2.x中，urllib模块分为urllib和urllib2，而在Python3.x中，就只有一个urllib库了，urllib2模块在Python3已拆分更名为urllib.request和urllib.error。本文所用的版本为Python2.7。</p>
+<p>Python的urllib和urllib2模块都做与请求URL相关的操作，但它们提供的功能有所不同，其中最显著的差异如下：<br><a id="more"></a></p>
+<blockquote>
+<ul>
+<li>urllib2可以接受一个Request对象，并以此可以来设置一个URL的headers，但是urllib只接收一个URL。这意味着，你不能伪装你的用户代理字符串等。</li>
+<li>urllib模块可以提供进行urlencode的方法，该方法用于GET查询字符串的生成，urllib2的不具有这样的功能。这就是urllib与urllib2经常在一起使用的原因。</li>
+</ul>
+</blockquote>
+<h3 id="urlopen"><a href="#urlopen" class="headerlink" title="urlopen()"></a>urlopen()</h3><p><strong>urllib.urlopen(url, [,data[,timeout]])</strong></p>
+<blockquote>
+<ul>
+<li>创建一个表示远程url的类文件对象，然后像本地文件一样操作这个类文件对象来获取远程数据。参数url表示远程数据的路径，一般是网址；参数data表示以post方式提交到url的数据；timeout是设置超时时间。</li>
+<li>urlopen返回一个类文件对象；它提供了如下方法：<ul>
+<li>read() , readline() , readlines()，fileno()和close()： 这些方法的使用与文件对象完全一样。</li>
+<li>info()：返回一个httplib.HTTPMessage 对象，表示远程服务器返回的头信息。</li>
+<li>getcode()：返回Http状态码，如果是http请求，200表示请求成功完成;404表示网址未找到。</li>
+<li>geturl()：返回请求的url地址。</li>
+</ul>
+</li>
+<li>其中，url为必须参数，data和timeout为非必须参数</li>
+</ul>
+</blockquote>
+<h3 id="urllib-urlencode"><a href="#urllib-urlencode" class="headerlink" title="urllib.urlencode()"></a>urllib.urlencode()</h3><p>把字典数据转换为url编码（将url中的键值对以连接符&amp;划分）</p>
+<blockquote>
+<ul>
+<li>对url参数进行编码</li>
+<li>对post上去的form数据进行编码</li>
+</ul>
+</blockquote>
+<p>这里可以与urlopen结合以实现post方法和get方法：</p>
+<p><strong>GET方法：</strong><br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&gt;&gt;&gt; import urllib</div><div class="line">&gt;&gt;&gt; params=urllib.urlencode(&#123;'spam1':'xxx','spam2':'xxx','spam3':'xxx'&#125;)</div><div class="line">&gt;&gt;&gt; params</div><div class="line">'spam1=xxx&amp;spam2=xxx&amp;spam3=xxx'</div><div class="line">&gt;&gt;&gt; f=urllib.urlopen("http://python.org/query?%s" % params)</div><div class="line">&gt;&gt;&gt; print f.read()</div></pre></td></tr></table></figure></p>
+<p><strong>POST方法：</strong><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; import urllib</div><div class="line">&gt;&gt;&gt; parmas = urllib.urlencode(&#123;<span class="string">'spam1'</span>:<span class="string">'xxx'</span>,<span class="string">'spam2'</span>:<span class="string">'xxx'</span>,<span class="string">'spam3'</span>:<span class="string">'xxx'</span>&#125;)</div><div class="line">&gt;&gt;&gt; f=urllib.urlopen(<span class="string">"http://python.org/query"</span>,parmas)</div><div class="line">&gt;&gt;&gt; f.read()</div></pre></td></tr></table></figure></p>
+<h3 id="urlparse-parse-qs"><a href="#urlparse-parse-qs" class="headerlink" title="urlparse.parse_qs()"></a>urlparse.parse_qs()</h3><blockquote>
+<p>把url编码转化为字典数据（恰好和urlencode相反）</p>
+</blockquote>
+<h3 id="urllib-urlretrieve-url-filename-reporthook-data"><a href="#urllib-urlretrieve-url-filename-reporthook-data" class="headerlink" title="urllib.urlretrieve(url[, filename[, reporthook[, data]]])"></a>urllib.urlretrieve(url[, filename[, reporthook[, data]]])</h3><blockquote>
+<ul>
+<li>urlretrieve() 方法直接将远程数据下载到本地。</li>
+<li>参数 finename 指定了保存本地路径（如果参数未指定，urllib会生成一个临时文件保存数据。）</li>
+<li>参数 reporthook 是一个回调函数，当连接上服务器、以及相应的数据块传输完毕时会触发该回调，我们可以利用这个回调函数来显示当前的下载进度。<ul>
+<li>参数1：当前传输的块数</li>
+<li>参数2：块大小</li>
+<li>参数3：数据总大小</li>
+</ul>
+</li>
+<li>参数 data 指 post 到服务器的数据，该方法返回一个包含两个元素的(filename, headers)元组，filename 表示保存到本地的路径，header 表示服务器的响应头。</li>
+<li>返回（filename, HTTPMessage）</li>
+</ul>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; import urllib</div><div class="line">&gt;&gt;&gt; def progress(a, b, c):  </div><div class="line">    '''回调函数 </div><div class="line">    @a: 已经下载的数据块 </div><div class="line">    @b: 数据块的大小 </div><div class="line">    @c: 远程文件的大小 </div><div class="line">    '''  </div><div class="line">    per = 100.0 * a * b / c  </div><div class="line">    if per &gt; 100:  </div><div class="line">        per = 100  </div><div class="line">    print '%.2f%%' % per</div><div class="line"></div><div class="line">&gt;&gt;&gt; url = 'http://www.google.com'</div><div class="line">&gt;&gt;&gt; fname = 'd://google.html'</div><div class="line">&gt;&gt;&gt; urllib.urlretrieve(url, fname, reporthook=progress)</div><div class="line">-0.00%</div><div class="line">-819200.00%</div><div class="line">-1638400.00%</div><div class="line">-2457600.00%</div><div class="line">('d://google.html', &lt;httplib.HTTPMessage instance at 0x0000000003450608&gt;)</div></pre></td></tr></table></figure>
+<h3 id="urllib2-Request-url-data-headers-origin-req-host-unverifiable"><a href="#urllib2-Request-url-data-headers-origin-req-host-unverifiable" class="headerlink" title="urllib2.Request (url [data,headers [,origin_req_host ,[unverifiable]]]])"></a>urllib2.Request (url [data,headers [,origin_req_host ,[unverifiable]]]])</h3><blockquote>
+<p>对于比较简单的请求，urlopen()的参数url就是一个代表url的但如果需要执行更复杂的操作，如修改HTTP报头，可以创建Request实例并将其作为url参数。</p>
+<ul>
+<li>url为url字符串</li>
+<li>data是伴随url提交的数据（比如要post的数据）。不过要注意，提供data参数时，它会将HTTP请求从’GET’改为‘POST’。</li>
+<li>headers是一个字典，包含了可表示HTTP报头的键值映射（即要提交的header中包含的内容）。</li>
+<li>origin_req_host通常是发出请求的主机的名称，如果请求的是无法验证的url（通常是指不是用户直接输入的url，比如加载图像的页面中镶入的url），则后一个参数unverifiable设为TRUE。</li>
+</ul>
+</blockquote>
+<p>假设Request实例r，其比较重要的方法有下面几个：</p>
+<blockquote>
+<ul>
+<li>r.add_data(data) 向请求添加数据。如果请求是HTTP请求，则方法改为‘POST’。data是向指定url提交的数据，要注意该方法不会将data追教导之前已经设置的任何数据上，而是使用现在的data替换之前的。</li>
+<li>r.add_header(key, val) 向请求添加header信息，key是报头名，val是报头值，两个参数都是字符串。</li>
+<li>r.addunredirectedheader(key, val) 作用基本同上，但不会添加到重定向请求中。</li>
+<li>r.set_proxy(host, type) 准备请求到服务器。使用host替换原来的主机，使用type替换原来的请求类型。</li>
+</ul>
+</blockquote>
+<h3 id="urllib2-urlopen-url-data-timeout"><a href="#urllib2-urlopen-url-data-timeout" class="headerlink" title="urllib2.urlopen(url, [,data, [timeout]])"></a>urllib2.urlopen(url, [,data, [timeout]])</h3><p>urlopen()是最简单的请求方式，它打开url并返回类文件对象，并且使用该对象可以读取返回的内容。参数url可以是包含url的字符串，也可以是urllib2.request类的实例。data是经过编码的post数据（一般使用urllib.urlencode()来编码）。timeout是可选的超时期（以秒为单位），供所有阻塞操作内部使用。</p>
+<p>假设urlopen()返回的文件对象u，它支持下面的这些常用的方法：</p>
+<blockquote>
+<ul>
+<li>u.read([nbytes]) 以字节字符串形式读取nbytes个数据</li>
+<li>u.readline() 以字节字符串形式读取单行文本、</li>
+<li>u.readlines() 读取所有输入行然后返回一个列表</li>
+<li>u.close() 关闭链接</li>
+<li>u.getcode() 返回整数形式的HTTP响应代码，比如成功返回200,未找到文件时返回404</li>
+<li>u.geturl() 返回所返回的数据的实际url，但是会考虑发生的重定向问题</li>
+<li>u.info() 返回对象的字典对象，该字典描述了获取的页面情况。该对象带有与url关联的信息，对HTTP来说，返回的服务器响应包含HTTP包头。对于FTP来说，返回的报头包含’content-length’。对于本地文件，返回的报头包含‘content-length’和’content-type’字段。</li>
+</ul>
+</blockquote>
+<h3 id="opener"><a href="#opener" class="headerlink" title="opener"></a>opener</h3><blockquote>
+<p>urllib2.urlopen()函数不支持验证、cookie或者其它HTTP高级功能。要支持这些功能，必须使用build_opener()函数创建自定义Opener对象。</p>
+</blockquote>
+<h3 id="install-opener-opener"><a href="#install-opener-opener" class="headerlink" title="install_opener(opener)"></a>install_opener(opener)</h3><blockquote>
+<p>安装opener作为urlopen()使用的全局URL opener，即意味着以后调用urlopen()时都会使用安装的opener对象。opener通常是build_opener()创建的opener对象。</p>
+</blockquote>
+<h3 id="build-opener-handler1-handler2-…"><a href="#build-opener-handler1-handler2-…" class="headerlink" title="build_opener([handler1 [ handler2, … ]])"></a>build_opener([handler1 [ handler2, … ]])</h3><blockquote>
+<p>参数handler是Handler实例，常用的有HTTPBasicAuthHandler、HTTPCookieProcessor、ProxyHandler等。<br>build_opener ()返回的对象具有open()方法，与urlopen()函数的功能相同。</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 如果要修改http报头，可以用：</div><div class="line">import urllib2</div><div class="line">opener = urllib2.build_opener()</div><div class="line">opener.addheaders = [('User-agent', 'Mozilla/5.0')]</div><div class="line">opener.open('http://www.example.com/')</div></pre></td></tr></table></figure>
+<h3 id="密码验证（HTTPBasicAuthHandler）"><a href="#密码验证（HTTPBasicAuthHandler）" class="headerlink" title="密码验证（HTTPBasicAuthHandler）"></a>密码验证（HTTPBasicAuthHandler）</h3><blockquote>
+<ul>
+<li>HTTPBasicAuthHandler()处理程序可用add_password()来设置密码。</li>
+<li>h.add_password(realm,uri,user,passwd)</li>
+<li>realm是与验证相关联的名称或描述信息，取决于远程服务器。uri是基URL。user和passwd分别指定用户名和密码。</li>
+</ul>
+</blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">import urllib2</div><div class="line">auth=urllib2.HTTPBasicAuthHandler()</div><div class="line">auth.add_password(<span class="string">'Administrator'</span>,<span class="string">'http://www.example.com'</span>,<span class="string">'Dave'</span>,<span class="string">'123456'</span>)</div><div class="line">opener=urllib2.build_opener(auth)</div><div class="line">u=opener.open(<span class="string">'http://www.example.com/evilplan.html'</span>)</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/13/python-pacong-1/" rel="next" title="Python爬虫(一) -- 入门">
+                <i class="fa fa-chevron-left"></i> Python爬虫(一) -- 入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/20/python-pacong-3/" rel="prev" title="Python爬虫(三) -- urllib库的高级用法">
+                Python爬虫(三) -- urllib库的高级用法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/01/20/python-pacong-2/"
+           data-title="Python爬虫(二) -- urllib库的基本使用" data-url="http://bilive.xyz/2017/01/20/python-pacong-2/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="Surface" />
+          <p class="site-author-name" itemprop="name">Surface</p>
+          <p class="site-description motion-element" itemprop="description">把时间浪费在美好的事物上</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#urllib模块"><span class="nav-number">1.</span> <span class="nav-text">urllib模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#urlopen"><span class="nav-number">1.1.</span> <span class="nav-text">urlopen()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#urllib-urlencode"><span class="nav-number">1.2.</span> <span class="nav-text">urllib.urlencode()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#urlparse-parse-qs"><span class="nav-number">1.3.</span> <span class="nav-text">urlparse.parse_qs()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#urllib-urlretrieve-url-filename-reporthook-data"><span class="nav-number">1.4.</span> <span class="nav-text">urllib.urlretrieve(url[, filename[, reporthook[, data]]])</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#urllib2-Request-url-data-headers-origin-req-host-unverifiable"><span class="nav-number">1.5.</span> <span class="nav-text">urllib2.Request (url [data,headers [,origin_req_host ,[unverifiable]]]])</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#urllib2-urlopen-url-data-timeout"><span class="nav-number">1.6.</span> <span class="nav-text">urllib2.urlopen(url, [,data, [timeout]])</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#opener"><span class="nav-number">1.7.</span> <span class="nav-text">opener</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#install-opener-opener"><span class="nav-number">1.8.</span> <span class="nav-text">install_opener(opener)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#build-opener-handler1-handler2-…"><span class="nav-number">1.9.</span> <span class="nav-text">build_opener([handler1 [ handler2, … ]])</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#密码验证（HTTPBasicAuthHandler）"><span class="nav-number">1.10.</span> <span class="nav-text">密码验证（HTTPBasicAuthHandler）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Surface</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  断简残篇 -
+  <a class="theme-link" href="#">
+    bilive.xyz
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"bilive"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js?v=5.1.0"></script>
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
