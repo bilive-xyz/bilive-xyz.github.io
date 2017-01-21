@@ -1,0 +1,780 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python,爬虫," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Beautiful Soup的简介Beautiful Soup是python的一个库，最主要的功能是从网页解析数据。官方解释如下：
+
+Beautiful Soup提供一些简单的、python式的函数用来处理导航、搜索、修改分析树等功能。它是一个工具箱，通过解析文档为用户提供需要抓取的数据，因为简单，所以不需要多少代码就可以写出一个完整的应用程序。Beautiful Soup自动将输入文档转换为Un">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python爬虫(五) -- BeautifuSoup的使用">
+<meta property="og:url" content="http://bilive.xyz/2017/01/21/python-pachong-5/index.html">
+<meta property="og:site_name" content="Surface HexoBlog">
+<meta property="og:description" content="Beautiful Soup的简介Beautiful Soup是python的一个库，最主要的功能是从网页解析数据。官方解释如下：
+
+Beautiful Soup提供一些简单的、python式的函数用来处理导航、搜索、修改分析树等功能。它是一个工具箱，通过解析文档为用户提供需要抓取的数据，因为简单，所以不需要多少代码就可以写出一个完整的应用程序。Beautiful Soup自动将输入文档转换为Un">
+<meta property="og:image" content="http://ojo1aoetm.bkt.clouddn.com/Image%205.png">
+<meta property="og:updated_time" content="2017-01-21T03:21:56.454Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python爬虫(五) -- BeautifuSoup的使用">
+<meta name="twitter:description" content="Beautiful Soup的简介Beautiful Soup是python的一个库，最主要的功能是从网页解析数据。官方解释如下：
+
+Beautiful Soup提供一些简单的、python式的函数用来处理导航、搜索、修改分析树等功能。它是一个工具箱，通过解析文档为用户提供需要抓取的数据，因为简单，所以不需要多少代码就可以写出一个完整的应用程序。Beautiful Soup自动将输入文档转换为Un">
+<meta name="twitter:image" content="http://ojo1aoetm.bkt.clouddn.com/Image%205.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6370918075792885000',
+      author: 'Surface'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://bilive.xyz/2017/01/21/python-pachong-5/"/>
+
+
+
+
+
+  <title> Python爬虫(五) -- BeautifuSoup的使用 | Surface HexoBlog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Surface HexoBlog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description">攻克从入门到放弃系列</h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://bilive.xyz/2017/01/21/python-pachong-5/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Surface">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/uploads/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Surface HexoBlog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Surface HexoBlog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                Python爬虫(五) -- BeautifuSoup的使用
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-21T09:19:14+08:00">
+                2017-01-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/01/21/python-pachong-5/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/21/python-pachong-5/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Beautiful-Soup的简介"><a href="#Beautiful-Soup的简介" class="headerlink" title="Beautiful Soup的简介"></a>Beautiful Soup的简介</h2><p>Beautiful Soup是python的一个库，最主要的功能是从网页解析数据。官方解释如下：</p>
+<blockquote>
+<p>Beautiful Soup提供一些简单的、python式的函数用来处理导航、搜索、修改分析树等功能。它是一个工具箱，通过解析文档为用户提供需要抓取的数据，因为简单，所以不需要多少代码就可以写出一个完整的应用程序。<br>Beautiful Soup自动将输入文档转换为Unicode编码，输出文档转换为utf-8编码。你不需要考虑编码方式，除非文档没有指定一个编码方式，这时，Beautiful Soup就不能自动识别编码方式了。然后，你仅仅需要说明一下原始编码方式就可以了。<br>Beautiful Soup已成为和lxml、html6lib一样出色的python解释器，为用户灵活地提供不同的解析策略或强劲的速度。<br><a id="more"></a><br>BeautifulSoup解析是基于DOM的，会载入整个文档，再解析整个DOM树，因此解析效率不高，但可以用lxml做解析器，提高解析效率。</p>
+</blockquote>
+<h2 id="安装BeautifulSoup"><a href="#安装BeautifulSoup" class="headerlink" title="安装BeautifulSoup"></a>安装BeautifulSoup</h2><p>以Windows为例，其他可参考<a href="http://beautifulsoup.readthedocs.io/zh_CN/latest/#" target="_blank" rel="external">官方文档</a>。<br>可以利用pip或easy_install安装，安装命令：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install beautifulsoup4</div></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">easy_install beautifulsoup4</div></pre></td></tr></table></figure>
+<p>如果没有安装easy_install或pip，可以下载<a href="https://www.crummy.com/software/BeautifulSoup/bs4/download/4.0/" target="_blank" rel="external">BS4的源码</a>，然后通过setup.py来安装：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Python setup<span class="selector-class">.py</span> install</div></pre></td></tr></table></figure>
+<h3 id="安装lxml解析器"><a href="#安装lxml解析器" class="headerlink" title="安装lxml解析器"></a>安装lxml解析器</h3><p>在Windows上不能直接使用<code>pip install lxml</code>安装，总是会出现各种错误。首先需要安装wheel</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install wheel</div></pre></td></tr></table></figure>
+<p>然后在<a href="http://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml" target="_blank" rel="external">这里</a>下载对应的<code>.whl</code>文件，文件名形如<code>lxml‑3.7.2‑cp27‑cp27m‑win_amd64.whl</code>，其中<code>3.7.2</code>代表lxml版本，<code>cp27</code>指的是Python版本，<code>amd64</code>是64位系统，注意不要改名。<br>然后进入<code>.whl</code>所在文件夹，执行：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install lxml‑<span class="number">3.7</span>.<span class="number">2</span>‑cp27‑cp27m‑win_amd64.whl</div></pre></td></tr></table></figure>
+<p>文件名换成自己下载的文件名，lxml安装完成。</p>
+<h2 id="BeautifulSoup-库的使用"><a href="#BeautifulSoup-库的使用" class="headerlink" title="BeautifulSoup 库的使用"></a>BeautifulSoup 库的使用</h2><h3 id="Tag"><a href="#Tag" class="headerlink" title="Tag"></a>Tag</h3><p>Tag 是什么？通俗点讲就是标签，这个就跟HTML或者XML中的标签是一样一样的。使用find()方法返回的类型就是这个标签（使用find-all()返回的是多个该对象的集合，可以用for循环遍历）。返回标签之后，可以提取标签中的信息。<br>提取标签名字<code>tag.name</code>，提取标签属性<code>tag[&#39;attribute&#39;]</code>，用一个例子来了解这个类型：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">from bs4 import BeautifulSoup</div><div class="line">html_doc = """</div><div class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse's story&lt;/title&gt;&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;p class="title"&gt;&lt;b&gt;The Dormouse's story&lt;/b&gt;&lt;/p&gt;</div><div class="line">&lt;p class="story"&gt;Once upon a time there were three little sisters; and their names were</div><div class="line">&lt;a href="http://example.com/elsie" class="sister" id="link1"&gt;Elsie&lt;/a&gt;,</div><div class="line">&lt;a href="http://example.com/lacie" class="sister" id="link2"&gt;Lacie&lt;/a&gt; and</div><div class="line">&lt;a href="http://example.com/tillie" class="sister" id="link3"&gt;Tillie&lt;/a&gt;;</div><div class="line">and they lived at the bottom of a well.&lt;/p&gt;</div><div class="line">&lt;p class="story"&gt;...&lt;/p&gt;</div><div class="line">"""</div><div class="line">soup = BeautifulSoup(html_doc, 'lxml')  #声明BeautifulSoup对象</div><div class="line">find = soup.find('p')  #使用find方法查到第一个p标签</div><div class="line">print("find's return type is ", type(find))  #输出返回值类型</div><div class="line">print("find's content is", find)  #输出find获取的值</div><div class="line">print("find's Tag Name is ", find.name)  #输出标签的名字</div><div class="line">print("find's Attribute(class) is ", find['class'])  #输出标签的class属性值</div></pre></td></tr></table></figure>
+<h3 id="NavigableString"><a href="#NavigableString" class="headerlink" title="NavigableString"></a>NavigableString</h3><p>字符串常被包含在tag内.Beautiful Soup用 NavigableString 类来包装tag中的字符串，获取方式<code>tag.string</code><br>还是上面那个例子，加上下面这行，然后执行：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">print</span><span class="params">(<span class="string">'NavigableString is：'</span>, find.string)</span></span></div></pre></td></tr></table></figure></p>
+<p>执行结果：<br><img src="http://ojo1aoetm.bkt.clouddn.com/Image%205.png" alt="result"></p>
+<p>tag中包含的字符串不能编辑,但是可以被替换成其它的字符串,用 replace_with() 方法:<br>使用方法<code>tag.string.replace_with()</code></p>
+<h3 id="BeautifulSoup"><a href="#BeautifulSoup" class="headerlink" title="BeautifulSoup"></a>BeautifulSoup</h3><p>BeautifulSoup 对象表示的是一个文档的全部内容.大部分时候,可以把它当作 Tag 对象,它支持 遍历文档树 和 搜索文档树 中描述的大部分的方法.<br>因为 BeautifulSoup 对象并不是真正的HTML或XML的tag,所以它没有name和attribute属性.但有时查看它的 <code>.name</code> 属性是很方便的,所以 BeautifulSoup 对象包含了一个值为 “[document]” 的特殊属性<code>.name</code></p>
+<h3 id="Comment"><a href="#Comment" class="headerlink" title="Comment"></a>Comment</h3><p>这个对象其实就是HTML和XML中的注释。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">markup = "&lt;b&gt;&lt;!--Hey, buddy. Want to buy a used parser?--&gt;&lt;/b&gt;"</div><div class="line">soup = BeautifulSoup(markup)</div><div class="line">comment = soup.b.string</div><div class="line">type(comment)</div><div class="line"># &lt;class 'bs4.element.Comment'&gt;</div></pre></td></tr></table></figure>
+<p>有些时候，我们并不想获取HTML中的注释内容，所以用这个类型来判断是否是注释。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> type(SomeString) == bs4<span class="selector-class">.element</span><span class="selector-class">.Comment</span>:</div><div class="line">    print(<span class="string">'该字符是注释'</span>)</div><div class="line"><span class="keyword">else</span>:</div><div class="line">    print(<span class="string">'该字符不是注释'</span>)</div></pre></td></tr></table></figure>
+<h3 id="搜索文档树"><a href="#搜索文档树" class="headerlink" title="搜索文档树"></a>搜索文档树</h3><p><strong>find_all()</strong><br>搜索当前tag的所有tag子节点，并判断是否符合过滤器的条件。返回值类型是bs4.element.ResultSet。<br>完整的语法：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">find_all</span><span class="params">( name , attrs , recursive , string , **kwargs )</span></span></div></pre></td></tr></table></figure>
+<p>name 参数：可以查找所有名字为 name 的tag。<br>attr 参数：就是tag里的属性。<br>string 参数：搜索文档中字符串的内容。<br>recursive 参数： 调用tag的 find_all() 方法时，Beautiful Soup会检索当前tag的所有子孙节点。如果只想搜索tag的直接子节点，可以使用参数 recursive=False 。</p>
+<p>这里有几个例子：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">soup.find_all("title")</div><div class="line"># [&lt;title&gt;The Dormouse's story&lt;/title&gt;]</div><div class="line">#</div><div class="line">soup.find_all("p", "title")</div><div class="line"># [&lt;p class="title"&gt;&lt;b&gt;The Dormouse's story&lt;/b&gt;&lt;/p&gt;]</div><div class="line"># </div><div class="line">soup.find_all("a")</div><div class="line"># [&lt;a class="sister" href="http://example.com/elsie" id="link1"&gt;Elsie&lt;/a&gt;,</div><div class="line">#  &lt;a class="sister" href="http://example.com/lacie" id="link2"&gt;Lacie&lt;/a&gt;,</div><div class="line">#  &lt;a class="sister" href="http://example.com/tillie" id="link3"&gt;Tillie&lt;/a&gt;]</div><div class="line">#</div><div class="line">soup.find_all(id="link2")</div><div class="line"># [&lt;a class="sister" href="http://example.com/lacie" id="link2"&gt;Lacie&lt;/a&gt;]</div><div class="line">#</div><div class="line">import re</div><div class="line">soup.find(string=re.compile("sisters"))</div><div class="line"># u'Once upon a time there were three little sisters; and their names were\n'</div></pre></td></tr></table></figure>
+<p><strong>find()</strong><br>与find_all()类似，只不过只返回找到的第一个值。返回值类型是bs4.element.Tag。<br>完整语法：<br><code>find( name , attrs , recursive , string , **kwargs )</code><br>例子：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">soup.find('title')</div><div class="line"># &lt;title&gt;The Dormouse's story&lt;/title&gt;</div><div class="line">#</div><div class="line">soup.find("head").find("title")</div><div class="line"># &lt;title&gt;The Dormouse's story&lt;/title&gt;</div></pre></td></tr></table></figure>
+<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><p><strong>get_text()方法</strong><br>在获取到BeautifulSoup对象后,调用其.get_text()会把该对象里面的所有标签都全部去掉,以文本字符串的形式返回里面的内容。</p>
+<p><strong>正则表达式与BeautifulSoup</strong><br>正则表达式可以作为beautifulsoup的语句的任一个参数使用,让目标元素的查找更加的方便。例如查找图片中的src属性值以../img/gifts/img开头,以.jpg结尾。需要注意的是，各种环境下的正则表达式是不同的。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">images=bsObj.find_all(<span class="string">"img"</span>:&#123;<span class="string">"src"</span>:re.compile(<span class="string">"\.\.\/img\/gifts/img.*\.jpg"</span>)&#125;)</div></pre></td></tr></table></figure>
+<p><strong>指定文档解析器</strong><br>如果仅是想要解析HTML文档,只要用文档创建 BeautifulSoup 对象就可以了.Beautiful Soup会自动选择一个解析器来解析文档.但是还可以通过参数指定使用那种解析器来解析当前文档.</p>
+<p>BeautifulSoup 第一个参数应该是要被解析的文档字符串或是文件句柄,第二个参数用来标识怎样解析文档.如果第二个参数为空,那么Beautiful Soup根据当前系统安装的库自动选择解析器,解析器的优先数序: lxml, html5lib, Python标准库.在下面两种条件下解析器优先顺序会变化:</p>
+<blockquote>
+<p>要解析的文档是什么类型: 目前支持, “html”, “xml”, 和 “html5”<br>指定使用哪种解析器: 目前支持, “lxml”, “html5lib”, 和 “html.parser”</p>
+</blockquote>
+<p><strong>编码</strong><br>任何HTML或XML文档都有自己的编码方式,比如ASCII 或 UTF-8,但是使用Beautiful Soup解析后,文档都被转换成了Unicode。<br>通过Beautiful Soup输出文档时,不管输入文档是什么编码方式,输出编码均为UTF-8编码。<br>如果不想用UTF-8编码输出,可以将编码方式传入 <code>prettify()</code> 方法:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">print(soup.prettify("latin-1"))</div><div class="line"># &lt;html&gt;</div><div class="line">#  &lt;head&gt;</div><div class="line">#   &lt;meta content="text/html; charset=latin-1" http-equiv="Content-type" /&gt;</div><div class="line"># ...</div></pre></td></tr></table></figure>
+<p>还可以调用 <code>BeautifulSoup</code> 对象或任意节点的 <code>encode()</code> 方法,就像Python的字符串调用 encode() 方法一样:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">soup.p.encode("latin-1")</div><div class="line"># '&lt;p&gt;Sacr\xe9 bleu!&lt;/p&gt;'</div><div class="line"></div><div class="line">soup.p.encode("utf-8")</div><div class="line"># '&lt;p&gt;Sacr\xc3\xa9 bleu!&lt;/p&gt;'</div></pre></td></tr></table></figure>
+<p>其他更多参考<a href="http://beautifulsoup.readthedocs.io/zh_CN/latest/#" target="_blank" rel="external">官方文档</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/20/python-pachong-4/" rel="next" title="Python爬虫(四) -- 用urllib库模拟登录豆瓣">
+                <i class="fa fa-chevron-left"></i> Python爬虫(四) -- 用urllib库模拟登录豆瓣
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/21/python-pachong-6/" rel="prev" title="Python爬虫(六) -- 自己写一个爬虫">
+                Python爬虫(六) -- 自己写一个爬虫 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/01/21/python-pachong-5/"
+           data-title="Python爬虫(五) -- BeautifuSoup的使用" data-url="http://bilive.xyz/2017/01/21/python-pachong-5/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="Surface" />
+          <p class="site-author-name" itemprop="name">Surface</p>
+          <p class="site-description motion-element" itemprop="description">把时间浪费在美好的事物上</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Beautiful-Soup的简介"><span class="nav-number">1.</span> <span class="nav-text">Beautiful Soup的简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装BeautifulSoup"><span class="nav-number">2.</span> <span class="nav-text">安装BeautifulSoup</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装lxml解析器"><span class="nav-number">2.1.</span> <span class="nav-text">安装lxml解析器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BeautifulSoup-库的使用"><span class="nav-number">3.</span> <span class="nav-text">BeautifulSoup 库的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tag"><span class="nav-number">3.1.</span> <span class="nav-text">Tag</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NavigableString"><span class="nav-number">3.2.</span> <span class="nav-text">NavigableString</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BeautifulSoup"><span class="nav-number">3.3.</span> <span class="nav-text">BeautifulSoup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Comment"><span class="nav-number">3.4.</span> <span class="nav-text">Comment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搜索文档树"><span class="nav-number">3.5.</span> <span class="nav-text">搜索文档树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它"><span class="nav-number">3.6.</span> <span class="nav-text">其它</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Surface</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"bilive"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js?v=5.1.0"></script>
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

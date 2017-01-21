@@ -84,19 +84,25 @@
 
 
 
-<meta name="description" content="登录前准备（获取post数据)对于登录所需的post数据（就是你等登录id，密码等），用浏览器审查元素，在Network中得到数据，如图：">
+<meta name="description" content="本次编写爬虫实例是我在某X网学习的，也是接触的第一个爬虫程序，比较简单。在此基础上稍做了修改，本次爬虫抓取的目标是廖雪峰Python教程，教程很不错，想学Python的可以去看看，好了，话不多说，毕竟:
+1talk is cheap show me the code!">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python爬虫(四) -- 用urllib库模拟登录豆瓣">
-<meta property="og:url" content="http://bilive.xyz/2017/01/20/python-pacong-4/index.html">
+<meta property="og:title" content="Python爬虫(六) -- 自己写一个爬虫">
+<meta property="og:url" content="http://bilive.xyz/2017/01/21/python-pachong-6/index.html">
 <meta property="og:site_name" content="Surface HexoBlog">
-<meta property="og:description" content="登录前准备（获取post数据)对于登录所需的post数据（就是你等登录id，密码等），用浏览器审查元素，在Network中得到数据，如图：">
-<meta property="og:image" content="http://ojo1aoetm.bkt.clouddn.com/Image%203.png">
-<meta property="og:image" content="http://ojo1aoetm.bkt.clouddn.com/Image%204.png">
-<meta property="og:updated_time" content="2017-01-21T00:47:44.481Z">
+<meta property="og:description" content="本次编写爬虫实例是我在某X网学习的，也是接触的第一个爬虫程序，比较简单。在此基础上稍做了修改，本次爬虫抓取的目标是廖雪峰Python教程，教程很不错，想学Python的可以去看看，好了，话不多说，毕竟:
+1talk is cheap show me the code!">
+<meta property="og:image" content="http://ojo1aoetm.bkt.clouddn.com/Image%206.png">
+<meta property="og:image" content="http://ojo1aoetm.bkt.clouddn.com/Image%207.png">
+<meta property="og:image" content="http://ojo1aoetm.bkt.clouddn.com/Image%208.png">
+<meta property="og:image" content="http://ojo1aoetm.bkt.clouddn.com/Image%209.png">
+<meta property="og:image" content="http://ojo1aoetm.bkt.clouddn.com/Image%2010.png">
+<meta property="og:updated_time" content="2017-01-21T13:07:44.263Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python爬虫(四) -- 用urllib库模拟登录豆瓣">
-<meta name="twitter:description" content="登录前准备（获取post数据)对于登录所需的post数据（就是你等登录id，密码等），用浏览器审查元素，在Network中得到数据，如图：">
-<meta name="twitter:image" content="http://ojo1aoetm.bkt.clouddn.com/Image%203.png">
+<meta name="twitter:title" content="Python爬虫(六) -- 自己写一个爬虫">
+<meta name="twitter:description" content="本次编写爬虫实例是我在某X网学习的，也是接触的第一个爬虫程序，比较简单。在此基础上稍做了修改，本次爬虫抓取的目标是廖雪峰Python教程，教程很不错，想学Python的可以去看看，好了，话不多说，毕竟:
+1talk is cheap show me the code!">
+<meta name="twitter:image" content="http://ojo1aoetm.bkt.clouddn.com/Image%206.png">
 
 
 
@@ -124,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://bilive.xyz/2017/01/20/python-pacong-4/"/>
+  <link rel="canonical" href="http://bilive.xyz/2017/01/21/python-pachong-6/"/>
 
 
 
 
 
-  <title> Python爬虫(四) -- 用urllib库模拟登录豆瓣 | Surface HexoBlog </title>
+  <title> Python爬虫(六) -- 自己写一个爬虫 | Surface HexoBlog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -273,7 +279,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://bilive.xyz/2017/01/20/python-pacong-4/">
+  <link itemprop="mainEntityOfPage" href="http://bilive.xyz/2017/01/21/python-pachong-6/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Surface">
@@ -297,7 +303,7 @@
             
             
               
-                Python爬虫(四) -- 用urllib库模拟登录豆瓣
+                Python爬虫(六) -- 自己写一个爬虫
               
             
           </h2>
@@ -312,8 +318,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-20T19:13:27+08:00">
-                2017-01-20
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-21T11:28:46+08:00">
+                2017-01-21
               </time>
             
 
@@ -353,8 +359,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/01/20/python-pacong-4/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/20/python-pacong-4/" itemprop="commentCount"></span>
+                <a href="/2017/01/21/python-pachong-6/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/21/python-pachong-6/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -380,57 +386,52 @@
       
 
       
-        <h2 id="登录前准备（获取post数据"><a href="#登录前准备（获取post数据" class="headerlink" title="登录前准备（获取post数据)"></a>登录前准备（获取post数据)</h2><p>对于登录所需的post数据（就是你等登录id，密码等），用浏览器审查元素，在Network中得到数据，如图：</p>
-<p><img src="http://ojo1aoetm.bkt.clouddn.com/Image%203.png" alt="postdata"><br><a id="more"></a></p>
-<p>现在知道了登录所需的数据，就可以开始分析构造了。</p>
-<table>
-<thead>
-<tr>
-<th>captcha-id</th>
-<th>6CIbAvqoQuuWe4WCaL9OaiIT:en    //验证码id可以从登录页面中获取</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>captcha-solution</td>
-<td>sugar      //验证码内容</td>
-</tr>
-<tr>
-<td>form_email</td>
-<td>fsdaf        //账号</td>
-</tr>
-<tr>
-<td>form_password</td>
-<td>fsdaf        //密码</td>
-</tr>
-<tr>
-<td>login</td>
-<td>登录  //固定信息</td>
-</tr>
-<tr>
-<td>redir</td>
-<td><a href="https://www.douban.com/" target="_blank" rel="external">https://www.douban.com/</a>  //固定信息</td>
-</tr>
-<tr>
-<td>source</td>
-<td>index_nav  //固定信息</td>
-</tr>
-</tbody>
-</table>
-<h3 id="构造post数据"><a href="#构造post数据" class="headerlink" title="构造post数据"></a>构造post数据</h3><p>通过上表分析可知，需要在页面获取的参数为验证码id和验证码，可以先构造出如下数据块：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">data = &#123;<span class="string">'captcha-id'</span>: <span class="string">''</span>,</div><div class="line">                     <span class="string">'captcha-solution'</span>: <span class="string">''</span>,</div><div class="line">                     <span class="string">'form_email'</span>: <span class="string">'xxx@xx.com'</span>,</div><div class="line">                     <span class="string">'form_password'</span>: <span class="string">'xxxxx'</span>,</div><div class="line">                     <span class="string">'login'</span>: <span class="string">'登录'</span>,</div><div class="line">                     <span class="string">'redir'</span>: <span class="string">'https://www.douban.com/'</span>,</div><div class="line">                     <span class="string">'source'</span>: <span class="string">'index_nav'</span>&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="获取验证码及验证码ID"><a href="#获取验证码及验证码ID" class="headerlink" title="获取验证码及验证码ID"></a>获取验证码及验证码ID</h3><p>登录豆瓣需要输入验证码及验证码ID，验证码ID可查看页面源码：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;<span class="selector-tag">input</span> type=<span class="string">"hidden"</span> name=<span class="string">"captcha-id"</span> value=<span class="string">"6CIbAvqoQuuWe4WCaL9OaiIT:en"</span>&gt;</div></pre></td></tr></table></figure>
-<p>可用正则表达式提取出value的值：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">capid = re.search(<span class="string">'&lt;input type="hidden" name="captcha-id" value="(.*?)"/&gt;'</span>, login_page)</div></pre></td></tr></table></figure>
-<p>对于验证码，可能有自动识别的方法，但我不会，这里采用把验证码下载到本地，然后手动输入的方法。在页面源码中可以看到：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;<span class="selector-tag">img</span> id=<span class="string">"captcha_image"</span> src=<span class="string">"https://www.douban.com/misc/captcha?id=6CIbAvqoQuuWe4WCaL9OaiIT:en&amp;amp;size=s"</span> alt=<span class="string">"captcha"</span> class=<span class="string">"captcha_image"</span>&gt;</div></pre></td></tr></table></figure>
-<p>利用正则提取出图片url:</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">re.search(<span class="string">'&lt;img id="captcha_image" src="(.*?)" alt="captcha" class="captcha_image"/&gt;'</span>, login_page)</div></pre></td></tr></table></figure>
-<p>然后用urllib的urlretrieve()下载到本地：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">url = imgurl.group(<span class="number">1</span>)</div><div class="line">urllib.urlretrieve(url, <span class="string">'v.jpg'</span>)</div></pre></td></tr></table></figure>
-<h3 id="实现登录"><a href="#实现登录" class="headerlink" title="实现登录"></a>实现登录</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">def login(self):</div><div class="line">    print "请输入验证码："</div><div class="line">    cap = raw_input('input :')</div><div class="line">    self.data['captcha-solution'] = cap</div><div class="line">    #利用urlencode转换编码</div><div class="line">    post_data = urllib.urlencode(self.data)</div><div class="line">    #构建request请求</div><div class="line">    request = urllib2.Request(self.login_url, post_data, headers=self.header)</div><div class="line">    urllib2.install_opener(self.opener)</div><div class="line">    try:</div><div class="line">        response=urllib2.urlopen(request)</div><div class="line">    except urllib2.URLError as e:</div><div class="line">        if hasattr(e, "code"):</div><div class="line">            print "Error code: %s" % e.code</div><div class="line">        elif hasattr(e, "reason"):</div><div class="line">            print "Reason: %s" % e.reason</div><div class="line">        sys.exit(2)</div><div class="line">    result = response.read()</div><div class="line">    print result</div></pre></td></tr></table></figure>
-<p>源码已放在<a href="https://github.com/bilive-xyz/python-code/blob/master/doubanlogin/doubanlogin.py" target="_blank" rel="external">github</a>上</p>
-<p>显示结果：<br><img src="http://ojo1aoetm.bkt.clouddn.com/Image%204.png" alt="result"></p>
+        <p>本次编写爬虫实例是我在某X网学习的，也是接触的第一个爬虫程序，比较简单。在此基础上稍做了修改，本次爬虫抓取的目标是<a href="http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000" target="_blank" rel="external">廖雪峰Python教程</a>，教程很不错，想学Python的可以去看看，好了，话不多说，毕竟:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">talk is cheap show me the code!</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="制作爬虫需要什么？"><a href="#制作爬虫需要什么？" class="headerlink" title="制作爬虫需要什么？"></a>制作爬虫需要什么？</h2><p>写一个爬虫需要什么？</p>
+<blockquote>
+<ul>
+<li>首先需要一个爬虫调度端，用来启动或停止爬虫。</li>
+<li>在爬虫模块中，需要一个url管理器，来管理将要爬取和已经爬取的url，防止重复爬取。</li>
+<li>然后需要一个网页下载器，网页下载器下载url管理器传来url的内容。</li>
+<li>接着需要一个网页解析器，解析出有价值的数据，并把网页中其他url传给url管理器</li>
+</ul>
+</blockquote>
+<p>其爬虫架构如下：<br><img src="http://ojo1aoetm.bkt.clouddn.com/Image%206.png" alt="pacong"></p>
+<h2 id="制作爬虫的基本步骤"><a href="#制作爬虫的基本步骤" class="headerlink" title="制作爬虫的基本步骤"></a>制作爬虫的基本步骤</h2><p>一般来说，制作一个爬虫需要分以下几个步骤：</p>
+<blockquote>
+<ul>
+<li>需求分析</li>
+<li>网页源码分析</li>
+<li>编写正则或XPath表达式</li>
+<li>正式编写爬虫</li>
+</ul>
+</blockquote>
+<h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h3><p> 本次编写爬虫，用到的工具有urllib库和Beautifulsoup库，目标是抓取目标网站文字教程(不包括图片)。</p>
+<h3 id="网页源码分析"><a href="#网页源码分析" class="headerlink" title="网页源码分析"></a>网页源码分析</h3><p> 打开目标网页，审查元素，如下：</p>
+<p> <img src="http://ojo1aoetm.bkt.clouddn.com/Image%207.png" alt="yuanma"></p>
+<p> 只需提取标题和内容。</p>
+<p> 网页url分析：<br>  <img src="http://ojo1aoetm.bkt.clouddn.com/Image%208.png" alt="url"></p>
+<p> 如图，红线部分相同，黄线部分不同，只需对黄线进行正则处理即可。</p>
+<h3 id="正则编写"><a href="#正则编写" class="headerlink" title="正则编写"></a>正则编写</h3><p> 一句话：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">re.compile(<span class="string">"/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/\.*"</span>)</div></pre></td></tr></table></figure>
+<h3 id="编写爬虫"><a href="#编写爬虫" class="headerlink" title="编写爬虫"></a>编写爬虫</h3><p>创建一个spider_main来管理爬虫，创建一个url_manager来管理url，创建一个html_downloader来下载网页，创建一个html_parser来解析网页，创建一个html_outputer来输出内容，其结构如下：<br><img src="http://ojo1aoetm.bkt.clouddn.com/Image%209.png" alt="jiegou"></p>
+<p> 在spider_main中，把地址传给url管理器，然后用下载器下载，把下载的内容传给解析器，解析器将提取的url传给url管理器，将提取的内容传给输出器：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">self.urls.add_new_url(root_url)</div><div class="line">        while self.urls.has_new_url():</div><div class="line">            try:</div><div class="line">                new_url=self.urls.get_new_url()</div><div class="line">                print ('craw %d: %s' % (count,new_url))</div><div class="line">                html_cont=self.downloader.download(new_url)</div><div class="line">                new_urls,new_data=self.parser.parse(new_url,html_cont)</div><div class="line">                self.urls.add_new_urls(new_urls)</div><div class="line">                self.outputer.collect_data(new_data)</div></pre></td></tr></table></figure>
+<p>在url_manager中，用set()存放已爬取的url和未爬取的url，防止重复爬取：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">def __init__(self):</div><div class="line">    self.new_urls=set()</div><div class="line">    self.old_urls=set()</div></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> url not <span class="keyword">in</span> self<span class="selector-class">.new_urls</span> and url not <span class="keyword">in</span> self<span class="selector-class">.old_urls</span>:</div><div class="line">    self<span class="selector-class">.new_urls</span><span class="selector-class">.add</span>(url)</div></pre></td></tr></table></figure>
+<p>在html_downloader中，用urllib下载传来的url:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">try:</div><div class="line">    response=urllib2.urlopen(url)</div><div class="line">except urllib2.URLError as e:</div><div class="line">    if hasattr(e, "code"):</div><div class="line">        print "Error code: %s" % e.code</div><div class="line">    elif hasattr(e, "reason"):</div><div class="line">        print "Reason: %s" % e.reason</div><div class="line">    sys.exit(2)</div></pre></td></tr></table></figure>
+<p>在html_parser中，用beautifulsoup基础解析器解析内容：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">soup =BeautifulSoup(html_cont,<span class="string">'html.parser'</span>,from_encoding=<span class="string">'utf-8'</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">def _get_new_urls(self, page_url, soup):</div><div class="line">    new_urls=set()</div><div class="line">    links=soup.find_all('a',href=re.compile("/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/\.*"))</div><div class="line">    for link in links:</div><div class="line">        new_url=link['href']</div><div class="line">        new_full_url=urlparse.urljoin(page_url,new_url)</div><div class="line">        new_urls.add(new_full_url)</div><div class="line">    return new_urls</div></pre></td></tr></table></figure>
+<p>通过find()获得内容：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">title_node=soup.find(<span class="string">'h4'</span>)</div><div class="line">        res_data[<span class="string">'title'</span>]=title_node.get_text()</div><div class="line"> summary_node=soup.find(<span class="string">'div'</span>,class_=<span class="string">"x-wiki-content"</span>)</div><div class="line">        res_data[<span class="string">'summary'</span>] = summary_node.get_text()</div></pre></td></tr></table></figure></p>
+<p>在html_outputer中写入文件：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">with open('output.txt','w') as fout:</div><div class="line">    for data in self.datas:</div><div class="line">        fout.writelines('%s\n' %data['title'].encode('utf-8'))</div><div class="line">        fout.writelines('%s\n\n\n' %data['summary'].encode('utf-8'))</div></pre></td></tr></table></figure>
+<p>爬取结果：<br><img src="http://ojo1aoetm.bkt.clouddn.com/Image%2010.png" alt="result"></p>
+<p>代码已上传至<a href="https://github.com/bilive-xyz/python-code/tree/master/spider" target="_blank" rel="external">github</a></p>
 
       
     </div>
@@ -465,8 +466,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/01/20/python-pacong-3/" rel="next" title="Python爬虫(三) -- urllib库的高级用法">
-                <i class="fa fa-chevron-left"></i> Python爬虫(三) -- urllib库的高级用法
+              <a href="/2017/01/21/python-pachong-5/" rel="next" title="Python爬虫(五) -- BeautifuSoup的使用">
+                <i class="fa fa-chevron-left"></i> Python爬虫(五) -- BeautifuSoup的使用
               </a>
             
           </div>
@@ -499,8 +500,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/01/20/python-pacong-4/"
-           data-title="Python爬虫(四) -- 用urllib库模拟登录豆瓣" data-url="http://bilive.xyz/2017/01/20/python-pacong-4/">
+      <div class="ds-thread" data-thread-key="2017/01/21/python-pachong-6/"
+           data-title="Python爬虫(六) -- 自己写一个爬虫" data-url="http://bilive.xyz/2017/01/21/python-pachong-6/">
       </div>
     
   </div>
@@ -547,7 +548,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -600,7 +601,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#登录前准备（获取post数据"><span class="nav-number">1.</span> <span class="nav-text">登录前准备（获取post数据)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#构造post数据"><span class="nav-number">1.1.</span> <span class="nav-text">构造post数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取验证码及验证码ID"><span class="nav-number">1.2.</span> <span class="nav-text">获取验证码及验证码ID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现登录"><span class="nav-number">1.3.</span> <span class="nav-text">实现登录</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#制作爬虫需要什么？"><span class="nav-number">1.</span> <span class="nav-text">制作爬虫需要什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#制作爬虫的基本步骤"><span class="nav-number">2.</span> <span class="nav-text">制作爬虫的基本步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#需求分析"><span class="nav-number">2.1.</span> <span class="nav-text">需求分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网页源码分析"><span class="nav-number">2.2.</span> <span class="nav-text">网页源码分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则编写"><span class="nav-number">2.3.</span> <span class="nav-text">正则编写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编写爬虫"><span class="nav-number">2.4.</span> <span class="nav-text">编写爬虫</span></a></li></ol></li></ol></div>
             
 
           </div>
