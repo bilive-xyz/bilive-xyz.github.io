@@ -1,0 +1,758 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python,爬虫进阶," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="由于GIL的存在，python中的多线程其实并不是真正的多线程，如果想要充分地使用多核CPU的资源，在python中大部分情况需要使用多进程。Python提供了非常好用的多进程包multiprocessing，只需要定义一个函数，Python会完成其他所有事情。借助这个包，可以轻松完成从单进程到并发执行的转换。multiprocessing支持子进程、通信和共享数据、执行不同形式的同步，提供了Pr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python爬虫进阶之多进程">
+<meta property="og:url" content="http://bilive.xyz/2017/01/23/python-pachong-11/index.html">
+<meta property="og:site_name" content="Surface HexoBlog">
+<meta property="og:description" content="由于GIL的存在，python中的多线程其实并不是真正的多线程，如果想要充分地使用多核CPU的资源，在python中大部分情况需要使用多进程。Python提供了非常好用的多进程包multiprocessing，只需要定义一个函数，Python会完成其他所有事情。借助这个包，可以轻松完成从单进程到并发执行的转换。multiprocessing支持子进程、通信和共享数据、执行不同形式的同步，提供了Pr">
+<meta property="og:updated_time" content="2017-01-23T11:27:31.681Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python爬虫进阶之多进程">
+<meta name="twitter:description" content="由于GIL的存在，python中的多线程其实并不是真正的多线程，如果想要充分地使用多核CPU的资源，在python中大部分情况需要使用多进程。Python提供了非常好用的多进程包multiprocessing，只需要定义一个函数，Python会完成其他所有事情。借助这个包，可以轻松完成从单进程到并发执行的转换。multiprocessing支持子进程、通信和共享数据、执行不同形式的同步，提供了Pr">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6370918075792885000',
+      author: 'Surface'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://bilive.xyz/2017/01/23/python-pachong-11/"/>
+
+
+
+
+
+  <title> Python爬虫进阶之多进程 | Surface HexoBlog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Surface HexoBlog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description">攻克从入门到放弃系列</h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://bilive.xyz/2017/01/23/python-pachong-11/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Surface">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/uploads/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Surface HexoBlog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Surface HexoBlog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                Python爬虫进阶之多进程
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-23T16:42:59+08:00">
+                2017-01-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/01/23/python-pachong-11/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/23/python-pachong-11/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>由于GIL的存在，python中的多线程其实并不是真正的多线程，如果想要充分地使用多核CPU的资源，在python中大部分情况需要使用多进程。Python提供了非常好用的多进程包multiprocessing，只需要定义一个函数，Python会完成其他所有事情。借助这个包，可以轻松完成从单进程到并发执行的转换。multiprocessing支持子进程、通信和共享数据、执行不同形式的同步，提供了Process、Queue、Pipe、Lock等组件。<br><a id="more"></a><br>multiprocessing包是Python中的多进程管理包。与threading.Thread类似，它可以利用multiprocessing.Process对象来创建一个进程。该进程可以运行在Python程序内部编写的函数。该Process对象与Thread对象的用法相同，也有start(), run(), join()的方法。此外multiprocessing包中也有Lock/Event/Semaphore/Condition类 (这些对象可以像多线程那样，通过参数传递给各个进程)，用以同步进程，其用法与threading包中的同名类一致。所以，multiprocessing的很大一部份与threading使用同一套API，只不过换到了多进程的情境。</p>
+<p>但在使用这些共享API的时候，需要注意以下几点:</p>
+<blockquote>
+<p>在UNIX平台上，当某个进程终结之后，该进程需要被其父进程调用wait，否则进程成为僵尸进程(Zombie)。所以，有必要对每个Process对象调用join()方法 (实际上等同于wait)。对于多线程来说，由于只有一个进程，所以不存在此必要性。<br>multiprocessing提供了threading包中没有的IPC(比如Pipe和Queue)，效率上更高。应优先考虑Pipe和Queue，避免使用Lock/Event/Semaphore/Condition等同步方式 (因为它们占据的不是用户进程的资源)。<br>多进程应该避免共享资源。在多线程中，我们可以比较容易地共享资源，比如使用全局变量或者传递参数。在多进程情况下，由于每个进程有自己独立的内存空间，以上方法并不合适。此时我们可以通过共享内存和Manager的方法来共享资源。但这样做提高了程序的复杂度，并因为同步的需要而降低了程序的效率。</p>
+</blockquote>
+<p>Process.PID中保存有PID，如果进程还没有start()，则PID为None。</p>
+<h2 id="简单创建多进程"><a href="#简单创建多进程" class="headerlink" title="简单创建多进程"></a>简单创建多进程</h2><p>创建进程有两种方法，一种是直接传入要运行的方法，另一种则是从Process继承并覆盖run()方法。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from multiprocessing import Process</div><div class="line"></div><div class="line">def foo(i):</div><div class="line">    print 'say hi', i</div><div class="line"></div><div class="line">if __name__ == '__main__':</div><div class="line">    for i in range(10):</div><div class="line">        p = Process(target=foo, args=(i,))</div><div class="line">        p.start()</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">say hi <span class="number">4</span></div><div class="line">say hi <span class="number">3</span></div><div class="line">say hi <span class="number">5</span></div><div class="line">say hi <span class="number">2</span></div><div class="line">say hi <span class="number">1</span></div><div class="line">say hi <span class="number">6</span></div><div class="line">say hi <span class="number">0</span></div><div class="line">say hi <span class="number">7</span></div><div class="line">say hi <span class="number">8</span></div><div class="line">say hi <span class="number">9</span></div></pre></td></tr></table></figure>
+<p>可以看出多个进程随机顺序执行</p>
+<p>另一种方法：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">from multiprocessing import Process</div><div class="line">import time</div><div class="line">class MyProcess(Process):</div><div class="line">    def __init__(self, arg):</div><div class="line">        super(MyProcess, self).__init__()</div><div class="line">        self.arg = arg</div><div class="line"></div><div class="line">    def run(self):</div><div class="line">        print 'say hi', self.arg</div><div class="line">        time.sleep(1)</div><div class="line">    </div><div class="line">if __name__ == '__main__':</div><div class="line"></div><div class="line">    for i in range(10):</div><div class="line">        p = MyProcess(i)</div><div class="line">        p.start()</div></pre></td></tr></table></figure>
+<h2 id="Process类"><a href="#Process类" class="headerlink" title="Process类"></a>Process类</h2><h3 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">Process</span><span class="params">([group [, target [, name [, args [, kwargs]]]]])</span></span></div><div class="line"></div><div class="line">　　group: 线程组，目前还没有实现，库引用中提示必须是None； </div><div class="line">　　target: 要执行的方法； </div><div class="line">　　name: 进程名； </div><div class="line">　　args表示被调用对象的位置参数元组</div><div class="line">	   kwargs表示调用对象的字典</div></pre></td></tr></table></figure>
+<h3 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h3><blockquote>
+<p>is_alive()：返回进程是否在运行。<br>join([timeout])：阻塞当前上下文环境的进程程，直到调用此方法的进程终止或到达指定的timeout（可选参数）。<br>start()：进程准备就绪，等待CPU调度<br>run()：strat()调用run方法，如果实例进程时未制定传入target，这star执行t默认run()方法。<br>terminate()：不管任务是否完成，立即停止工作进程</p>
+</blockquote>
+<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">　　authkey</div><div class="line">　　daemon：和线程的setDeamon功能一样</div><div class="line">　　exitcode(进程在运行时为None、如果为–N，表示被信号N结束）</div><div class="line">　　name：进程名字。</div><div class="line">　　pid：进程号。</div></pre></td></tr></table></figure>
+<p>实例：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">def foo(i):</div><div class="line">    time.sleep(1)</div><div class="line">    print 'say hi', i</div><div class="line">    time.sleep(1)</div><div class="line"></div><div class="line">if __name__ == '__main__':</div><div class="line">    p_list=[]</div><div class="line">    for i in range(10):</div><div class="line">        p = Process(target=foo, args=(i,))</div><div class="line">        p.daemon=True</div><div class="line">        p_list.append(p)</div><div class="line"></div><div class="line">    for p in p_list:</div><div class="line">        p.start()</div><div class="line">    for p in p_list:</div><div class="line">        p.join()</div><div class="line"></div><div class="line">    print 'main process end'</div></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">say hi 1</div><div class="line">say hi 2</div><div class="line">say hi 5</div><div class="line">say hi 6</div><div class="line">say hi 7</div><div class="line">say hi 0</div><div class="line">say hi 4</div><div class="line">say hi 3</div><div class="line">say hi 8</div><div class="line">say hi 9</div><div class="line">main process end</div></pre></td></tr></table></figure>
+<p>可以看出join（）方法和deamon属性的用法和多线程的基本一致。</p>
+<h2 id="Pool类"><a href="#Pool类" class="headerlink" title="Pool类"></a>Pool类</h2><p>在利用Python进行系统管理的时候，特别是同时操作多个文件目录，或者远程控制多台主机，并行操作可以节约大量的时间。当被操作对象数目不大时，可以直接利用multiprocessing中的Process动态成生多个进程，但如果是上百个，上千个目标，手动的去限制进程数量却又太过繁琐，此时可以发挥进程池的功效。</p>
+<p>进程池内部维护一个进程序列，当使用时，则去进程池中获取一个进程，如果进程池序列中没有可供使用的进进程，那么程序就会等待，直到进程池中有可用进程为止。进程池设置最好等于CPU核心数量。</p>
+<h3 id="构造方法-1"><a href="#构造方法-1" class="headerlink" title="构造方法"></a>构造方法</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">Pool</span><span class="params">([processes[, initializer[, initargs[, maxtasksperchild[, context]]]]])</span></span></div><div class="line"></div><div class="line">processes ：使用的工作进程的数量，如果processes是None那么使用 os.cpu_count()返回的数量。</div><div class="line">initializer： 如果initializer是None，那么每一个工作进程在开始的时候会调用initializer(*initargs)。</div><div class="line">maxtasksperchild：工作进程退出之前可以完成的任务数，完成后用一个新的工作进程来替代原进程，来让闲置的资源被释放。maxtasksperchild默认是None，意味着只要Pool存在工作进程就会一直存活。</div><div class="line">context: 用在制定工作进程启动时的上下文，一般使用 multiprocessing.Pool() 或者一个context对象的Pool()方法来创建一个池，两种方法都适当的设置了context</div></pre></td></tr></table></figure>
+<h3 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">　　apply(func[, args[, kwds]])：同步进程池</div><div class="line">　　apply_async(func[, args[, kwds[, callback[, error_callback]]]]) ：异步进程池</div><div class="line">　　close() ： 关闭进程池，阻止更多的任务提交到pool，待任务完成后，工作进程会退出。</div><div class="line">　　terminate() ： 结束工作进程，不在处理未完成的任务</div><div class="line">　　join() : wait工作线程的退出，在调用join()前，必须调用close() or terminate()。</div><div class="line">这样是因为被终止的进程需要被父进程调用wait（join等价与wait），否则进程会成为僵尸进程。</div><div class="line">pool.join()必须使用在pool.close()或者pool.terminate()之后。其中close()跟terminate()的区别在于</div><div class="line"><span class="function"><span class="title">close</span><span class="params">()</span></span>会等待池中的worker进程执行结束再关闭pool,而terminate()则是直接关闭。</div></pre></td></tr></table></figure>
+<h3 id="关于阻塞与非阻塞"><a href="#关于阻塞与非阻塞" class="headerlink" title="关于阻塞与非阻塞"></a>关于阻塞与非阻塞</h3><blockquote>
+<p>阻塞和非阻塞关注的是程序在等待调用结果（消息，返回值）时的状态。<br>阻塞即要等到回调结果出来，在有结果之前，当前进程会被挂起。<br>非阻塞即为添加进程后，不一定非要等到该进程执行完就添加其他进程运行</p>
+</blockquote>
+<p>非阻塞用法：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">from multiprocessing import Pool</div><div class="line">import time</div><div class="line"></div><div class="line">def function(index):</div><div class="line">    print 'Start process: ', index</div><div class="line">    time.sleep(3)</div><div class="line">    print 'End process', index</div><div class="line"></div><div class="line">if __name__ == '__main__':</div><div class="line">    pool = Pool(processes=3)</div><div class="line">    for i in xrange(4):</div><div class="line">        pool.apply_async(function, (i,))</div><div class="line"></div><div class="line">    print "Started processes"</div><div class="line">    pool.close()</div><div class="line">    pool.join()</div><div class="line">    print "Subprocess done."</div></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Started processes</div><div class="line">Start process: Start process:  0 </div><div class="line">1</div><div class="line">Start process:  2</div><div class="line">End processEnd process 0 </div><div class="line">1</div><div class="line">Start process:  3</div><div class="line">End process 2</div><div class="line">End process 3</div><div class="line">Subprocess done.</div></pre></td></tr></table></figure>
+<p>可以发现在这里添加三个进程进去后，立马就开始执行，不用非要等到某个进程结束后再添加新的进程进去。</p>
+<p>阻塞的用法。只需把<code>apply_async</code>改为<code>apply</code>即可，结果如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Start process:  0</div><div class="line">End process 0</div><div class="line">Start process:  1</div><div class="line">End process 1</div><div class="line">Start process:  2</div><div class="line">End process 2</div><div class="line">Start process:  3</div><div class="line">End process 3</div><div class="line">Started processes</div><div class="line">Subprocess done.</div></pre></td></tr></table></figure>
+<p>此外，还有一个非常好用的map方法。<br>比如现在你有一个数组，包含了所有的URL，而现在已经有了一个方法用来抓取每个URL内容并解析，那么可以直接在map的第一个参数传入方法名，第二个参数传入URL数组。<br>例如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">from multiprocessing import Pool</div><div class="line">import requests</div><div class="line">from requests.exceptions import ConnectionError</div><div class="line"></div><div class="line">def scrape(url):</div><div class="line">    try:</div><div class="line">        print requests.get(url)</div><div class="line">    except ConnectionError:</div><div class="line">        print 'Error Occured ', url</div><div class="line">    finally:</div><div class="line">        print 'URL ', url, ' Scraped'</div><div class="line"></div><div class="line">if __name__ == '__main__':</div><div class="line">    pool = Pool(processes=3)</div><div class="line">    urls = [</div><div class="line">        'https://www.baidu.com',</div><div class="line">        'http://www.meituan.com/',</div><div class="line">        'http://blog.csdn.net/',</div><div class="line">        'http://xxxyxxx.net'</div><div class="line">    ]</div><div class="line">    pool.map(scrape, urls)</div></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;Response [<span class="number">403</span>]&gt;</div><div class="line">URL  http:<span class="comment">//blog.csdn.net/  Scraped</span></div><div class="line">&lt;Response [<span class="number">200</span>]&gt;</div><div class="line">URL  https:<span class="comment">//www.baidu.com  Scraped</span></div><div class="line">Error Occured  http:<span class="comment">//xxxyxxx.net</span></div><div class="line">URL  http:<span class="comment">//xxxyxxx.net  Scraped</span></div><div class="line">&lt;Response [<span class="number">200</span>]&gt;</div><div class="line">URL  http:<span class="comment">//www.meituan.com/  Scraped</span></div></pre></td></tr></table></figure>
+<h2 id="数据共享"><a href="#数据共享" class="headerlink" title="数据共享"></a>数据共享</h2><p>Manager()返回的manager提供list, dict, Namespace, Lock, RLock, Semaphore, BoundedSemaphore, Condition, Event, Barrier, Queue, Value and Array类型的支持。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">from multiprocessing import Process, Manager</div><div class="line"></div><div class="line">def f(d, l):</div><div class="line">    d[1] = '1'</div><div class="line">    d['2'] = 2</div><div class="line">    d[0.25] = None</div><div class="line">    l.reverse()</div><div class="line"></div><div class="line">if __name__ == '__main__':</div><div class="line">    with Manager() as manager:</div><div class="line">        d = manager.dict()</div><div class="line">        l = manager.list(range(10))</div><div class="line">        p = Process(target=f, args=(d, l))</div><div class="line">        p.start()</div><div class="line">        p.join()</div><div class="line"></div><div class="line">        print(d)</div><div class="line">        print(l)</div></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;<span class="number">0.25</span>: None, <span class="number">1</span>: <span class="string">'1'</span>, <span class="string">'2'</span>: <span class="number">2</span>&#125;</div><div class="line">[<span class="number">9</span>, <span class="number">8</span>, <span class="number">7</span>, <span class="number">6</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>]</div><div class="line"></div><div class="line">Process finished with exit <span class="selector-tag">code</span> <span class="number">0</span></div></pre></td></tr></table></figure>
+<h2 id="Pipe"><a href="#Pipe" class="headerlink" title="Pipe"></a>Pipe</h2><p>Pipe可以是单向(half-duplex)，也可以是双向(duplex)。我们通过mutiprocessing.Pipe(duplex=False)创建单向管道 (默认为双向)。一个进程从PIPE一端输入对象，然后被PIPE另一端的进程接收，单向管道只允许管道一端的进程输入，而双向管道则允许从两端输入。<br>实例：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">from multiprocessing import Process, Pipe</div><div class="line"></div><div class="line">class Consumer(Process):</div><div class="line">    def __init__(self, pipe):</div><div class="line">        Process.__init__(self)</div><div class="line">        self.pipe = pipe</div><div class="line"></div><div class="line">    def run(self):</div><div class="line">        self.pipe.send('Consumer Words')</div><div class="line">        print 'Consumer Received:', self.pipe.recv()</div><div class="line"></div><div class="line">class Producer(Process):</div><div class="line">    def __init__(self, pipe):</div><div class="line">        Process.__init__(self)</div><div class="line">        self.pipe = pipe</div><div class="line"></div><div class="line">    def run(self):</div><div class="line">        print 'Producer Received:', self.pipe.recv()</div><div class="line">        self.pipe.send('Producer Words')</div><div class="line"></div><div class="line">if __name__ == '__main__':</div><div class="line">    pipe = Pipe()</div><div class="line">    p = Producer(pipe[0])</div><div class="line">    c = Consumer(pipe[1])</div><div class="line">    p.daemon = c.daemon = True</div><div class="line">    p.start()</div><div class="line">    c.start()</div><div class="line">    p.join()</div><div class="line">    c.join()</div><div class="line">    print 'Ended!'</div></pre></td></tr></table></figure>
+<p>在这里声明了一个默认为双向的管道，然后将管道的两端分别传给两个进程。两个进程互相收发。观察一下结果：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Producer Received: Consumer Words</div><div class="line">Consumer Received: Producer Words</div><div class="line">Ended!</div></pre></td></tr></table></figure>
+<h2 id="重构爬虫"><a href="#重构爬虫" class="headerlink" title="重构爬虫"></a>重构爬虫</h2><p>主要针对之间写过的抓取图片爬虫进行重构:</p>
+<blockquote>
+<p><a href="http://localhost:4000/2017/01/22/python-pachong-8/" target="_blank" rel="external">用Request抓取图片</a></p>
+</blockquote>
+<p>创建进程池，利用非阻塞的方式下载图片：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">pool = multiprocessing.Pool(multiprocessing.cpu_count())</div><div class="line">    <span class="keyword">for</span> url <span class="keyword">in</span> urls:</div><div class="line">        pool.apply_async(down, args=(url,))</div><div class="line">    pool.close()</div><div class="line">    pool.join()</div><div class="line">    pool.terminate()</div></pre></td></tr></table></figure>
+<p>完整代码已上传至<a href="https://github.com/bilive-xyz/python-code/blob/master/picdown/processpicdown.py" target="_blank" rel="external">github</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/爬虫进阶/" rel="tag"># 爬虫进阶</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/23/python-pachong-10/" rel="next" title="Python爬虫进阶之多线程续(Queue)">
+                <i class="fa fa-chevron-left"></i> Python爬虫进阶之多线程续(Queue)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/01/23/python-pachong-11/"
+           data-title="Python爬虫进阶之多进程" data-url="http://bilive.xyz/2017/01/23/python-pachong-11/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="Surface" />
+          <p class="site-author-name" itemprop="name">Surface</p>
+          <p class="site-description motion-element" itemprop="description">把时间浪费在美好的事物上</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单创建多进程"><span class="nav-number">1.</span> <span class="nav-text">简单创建多进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Process类"><span class="nav-number">2.</span> <span class="nav-text">Process类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#构造方法"><span class="nav-number">2.1.</span> <span class="nav-text">构造方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例方法"><span class="nav-number">2.2.</span> <span class="nav-text">实例方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性"><span class="nav-number">2.3.</span> <span class="nav-text">属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pool类"><span class="nav-number">3.</span> <span class="nav-text">Pool类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#构造方法-1"><span class="nav-number">3.1.</span> <span class="nav-text">构造方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现方法"><span class="nav-number">3.2.</span> <span class="nav-text">实现方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于阻塞与非阻塞"><span class="nav-number">3.3.</span> <span class="nav-text">关于阻塞与非阻塞</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据共享"><span class="nav-number">4.</span> <span class="nav-text">数据共享</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pipe"><span class="nav-number">5.</span> <span class="nav-text">Pipe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重构爬虫"><span class="nav-number">6.</span> <span class="nav-text">重构爬虫</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Surface</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"bilive"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js?v=5.1.0"></script>
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
