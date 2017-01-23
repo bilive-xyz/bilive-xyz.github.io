@@ -90,7 +90,7 @@
 <meta property="og:url" content="http://bilive.xyz/2017/01/23/python-pachong-11/index.html">
 <meta property="og:site_name" content="Surface HexoBlog">
 <meta property="og:description" content="由于GIL的存在，python中的多线程其实并不是真正的多线程，如果想要充分地使用多核CPU的资源，在python中大部分情况需要使用多进程。Python提供了非常好用的多进程包multiprocessing，只需要定义一个函数，Python会完成其他所有事情。借助这个包，可以轻松完成从单进程到并发执行的转换。multiprocessing支持子进程、通信和共享数据、执行不同形式的同步，提供了Pr">
-<meta property="og:updated_time" content="2017-01-23T11:27:31.681Z">
+<meta property="og:updated_time" content="2017-01-23T11:33:09.498Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python爬虫进阶之多进程">
 <meta name="twitter:description" content="由于GIL的存在，python中的多线程其实并不是真正的多线程，如果想要充分地使用多核CPU的资源，在python中大部分情况需要使用多进程。Python提供了非常好用的多进程包multiprocessing，只需要定义一个函数，Python会完成其他所有事情。借助这个包，可以轻松完成从单进程到并发执行的转换。multiprocessing支持子进程、通信和共享数据、执行不同形式的同步，提供了Pr">
@@ -406,7 +406,7 @@
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Producer Received: Consumer Words</div><div class="line">Consumer Received: Producer Words</div><div class="line">Ended!</div></pre></td></tr></table></figure>
 <h2 id="重构爬虫"><a href="#重构爬虫" class="headerlink" title="重构爬虫"></a>重构爬虫</h2><p>主要针对之间写过的抓取图片爬虫进行重构:</p>
 <blockquote>
-<p><a href="http://localhost:4000/2017/01/22/python-pachong-8/" target="_blank" rel="external">用Request抓取图片</a></p>
+<p><a href="http://bilive.xyz/2017/01/22/python-pachong-8/">用Requests抓取图片</a></p>
 </blockquote>
 <p>创建进程池，利用非阻塞的方式下载图片：</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">pool = multiprocessing.Pool(multiprocessing.cpu_count())</div><div class="line">    <span class="keyword">for</span> url <span class="keyword">in</span> urls:</div><div class="line">        pool.apply_async(down, args=(url,))</div><div class="line">    pool.close()</div><div class="line">    pool.join()</div><div class="line">    pool.terminate()</div></pre></td></tr></table></figure>
