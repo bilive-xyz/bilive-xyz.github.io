@@ -85,13 +85,13 @@
 
 
 <meta name="description" content="基础环境准备
-Python版本为2.7Requestslxmlos系统内置模块re系统内置模块开发工具为PyCharm">
+Python版本为2.7Requestslxml开发工具为PyCharm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python爬虫实战(一) -- 抓取妹子图">
 <meta property="og:url" content="http://bilive.xyz/2017/01/24/python-pachong-12/index.html">
 <meta property="og:site_name" content="Surface HexoBlog">
 <meta property="og:description" content="基础环境准备
-Python版本为2.7Requestslxmlos系统内置模块re系统内置模块开发工具为PyCharm">
+Python版本为2.7Requestslxml开发工具为PyCharm">
 <meta property="og:image" content="http://ojo1aoetm.bkt.clouddn.com/Image%2024.png">
 <meta property="og:image" content="http://ojo1aoetm.bkt.clouddn.com/Image%2025.png">
 <meta property="og:image" content="http://ojo1aoetm.bkt.clouddn.com/Image%2026.png">
@@ -103,11 +103,11 @@ Python版本为2.7Requestslxmlos系统内置模块re系统内置模块开发工�
 <meta property="og:image" content="http://ojo1aoetm.bkt.clouddn.com/Image%2032.png">
 <meta property="og:image" content="http://ojo1aoetm.bkt.clouddn.com/Image%2033.png">
 <meta property="og:image" content="http://ojo1aoetm.bkt.clouddn.com/Image%2034.png">
-<meta property="og:updated_time" content="2017-01-24T13:03:46.561Z">
+<meta property="og:updated_time" content="2017-01-25T01:06:46.217Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python爬虫实战(一) -- 抓取妹子图">
 <meta name="twitter:description" content="基础环境准备
-Python版本为2.7Requestslxmlos系统内置模块re系统内置模块开发工具为PyCharm">
+Python版本为2.7Requestslxml开发工具为PyCharm">
 <meta name="twitter:image" content="http://ojo1aoetm.bkt.clouddn.com/Image%2024.png">
 
 
@@ -393,7 +393,7 @@ Python版本为2.7Requestslxmlos系统内置模块re系统内置模块开发工�
 
       
         <h2 id="基础环境准备"><a href="#基础环境准备" class="headerlink" title="基础环境准备"></a>基础环境准备</h2><blockquote>
-<p>Python版本为2.7<br>Requests<br>lxml<br>os系统内置模块<br>re系统内置模块<br>开发工具为PyCharm</p>
+<p>Python版本为2.7<br>Requests<br>lxml<br>开发工具为PyCharm</p>
 </blockquote>
 <a id="more"></a>
 <h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><p>本次爬取的目标是<a href="http://www.mzitu.com/" target="_blank" rel="external">mzitu.com</a>，先来看看主页：</p>
@@ -402,7 +402,7 @@ Python版本为2.7Requestslxmlos系统内置模块re系统内置模块开发工�
 <p>本次爬虫需要爬取网站所有妹子图，并按照名字存入不同的文件夹。</p>
 <h2 id="网页分析"><a href="#网页分析" class="headerlink" title="网页分析"></a>网页分析</h2><p>首先寻找爬虫入口：</p>
 <p><img src="http://ojo1aoetm.bkt.clouddn.com/Image%2025.png" alt="entry"></p>
-<p>一个页面有整站所有的shuju<code>http://www.mzitu.com/all</code>，连13年的都有(啧啧，站长真良心)，就从这个页面开始爬取。</p>
+<p>一个页面有整站所有的数据<code>http://www.mzitu.com/all</code>，连13年的都有(啧啧，站长真良心)，就从这个页面开始爬取。</p>
 <p>下面一段代码，获取<code>http://www.mzitu.com/all</code>这个页面：</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">url = <span class="string">'http://www.mzitu.com/all'</span>  ##开始的URL地址</div><div class="line"><span class="selector-tag">html</span> = requests.get(url)  </div><div class="line"><span class="function"><span class="title">print</span><span class="params">(html.text)</span></span>  ##concent是二进制的数据，一般用于下载图片、视频、音频、等多媒体内容是才使用concent, 对于打印网页内容请使用text)</div></pre></td></tr></table></figure>
 <p>接着提取出第二部分，右键审查元素：</p>
@@ -468,6 +468,10 @@ Python版本为2.7Requestslxmlos系统内置模块re系统内置模块开发工�
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/25/python-pachong-13/" rel="prev" title="Python爬虫进阶(四) -- 防ban策略">
+                Python爬虫进阶(四) -- 防ban策略 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -541,7 +545,7 @@ Python版本为2.7Requestslxmlos系统内置模块re系统内置模块开发工�
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
