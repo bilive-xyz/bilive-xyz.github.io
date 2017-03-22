@@ -84,20 +84,17 @@
 
 
 
-<meta name="description" content="会话的概念会话的概念可简单理解为：用户开一个浏览器，点击多个超链接，访问服务器多个web资源，然后关闭浏览器，整个过程称之为一个会话。有状态会话：一个同学来过教室，下次再来教室，我们知道这个同学曾经来过，这称之为有状态会话。
-保存会话数据的两种技术CookieCookie是客户端技术，程序吧每个用户的数据以cookie的形式给用户的浏览器。当用户使用浏览器再去访问服务器中的web资源时，就会带着各">
+<meta name="description" content="会话的概念会话的概念可简单理解为：用户开一个浏览器，点击多个超链接，访问服务器多个web资源，然后关闭浏览器，整个过程称之为一个会话。有状态会话：一个同学来过教室，下次再来教室，我们知道这个同学曾经来过，这称之为有状态会话。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java Web使用Cookie进行会话管理">
 <meta property="og:url" content="http://bilive.xyz/2017/03/22/java-3/index.html">
 <meta property="og:site_name" content="Surface HexoBlog">
-<meta property="og:description" content="会话的概念会话的概念可简单理解为：用户开一个浏览器，点击多个超链接，访问服务器多个web资源，然后关闭浏览器，整个过程称之为一个会话。有状态会话：一个同学来过教室，下次再来教室，我们知道这个同学曾经来过，这称之为有状态会话。
-保存会话数据的两种技术CookieCookie是客户端技术，程序吧每个用户的数据以cookie的形式给用户的浏览器。当用户使用浏览器再去访问服务器中的web资源时，就会带着各">
+<meta property="og:description" content="会话的概念会话的概念可简单理解为：用户开一个浏览器，点击多个超链接，访问服务器多个web资源，然后关闭浏览器，整个过程称之为一个会话。有状态会话：一个同学来过教室，下次再来教室，我们知道这个同学曾经来过，这称之为有状态会话。">
 <meta property="og:image" content="https://ooo.0o0.ooo/2017/03/22/58d22b385166e.png">
-<meta property="og:updated_time" content="2017-03-22T08:33:54.192Z">
+<meta property="og:updated_time" content="2017-03-22T08:37:53.477Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java Web使用Cookie进行会话管理">
-<meta name="twitter:description" content="会话的概念会话的概念可简单理解为：用户开一个浏览器，点击多个超链接，访问服务器多个web资源，然后关闭浏览器，整个过程称之为一个会话。有状态会话：一个同学来过教室，下次再来教室，我们知道这个同学曾经来过，这称之为有状态会话。
-保存会话数据的两种技术CookieCookie是客户端技术，程序吧每个用户的数据以cookie的形式给用户的浏览器。当用户使用浏览器再去访问服务器中的web资源时，就会带着各">
+<meta name="twitter:description" content="会话的概念会话的概念可简单理解为：用户开一个浏览器，点击多个超链接，访问服务器多个web资源，然后关闭浏览器，整个过程称之为一个会话。有状态会话：一个同学来过教室，下次再来教室，我们知道这个同学曾经来过，这称之为有状态会话。">
 <meta name="twitter:image" content="https://ooo.0o0.ooo/2017/03/22/58d22b385166e.png">
 
 
@@ -382,7 +379,7 @@
       
 
       
-        <h2 id="会话的概念"><a href="#会话的概念" class="headerlink" title="会话的概念"></a>会话的概念</h2><p>会话的概念可简单理解为：用户开一个浏览器，点击多个超链接，访问服务器多个web资源，然后关闭浏览器，整个过程称之为一个会话。<br>有状态会话：一个同学来过教室，下次再来教室，我们知道这个同学曾经来过，这称之为有状态会话。</p>
+        <h2 id="会话的概念"><a href="#会话的概念" class="headerlink" title="会话的概念"></a>会话的概念</h2><p>会话的概念可简单理解为：用户开一个浏览器，点击多个超链接，访问服务器多个web资源，然后关闭浏览器，整个过程称之为一个会话。<br>有状态会话：一个同学来过教室，下次再来教室，我们知道这个同学曾经来过，这称之为有状态会话。<br><a id="more"></a></p>
 <h2 id="保存会话数据的两种技术"><a href="#保存会话数据的两种技术" class="headerlink" title="保存会话数据的两种技术"></a>保存会话数据的两种技术</h2><h3 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h3><p>Cookie是客户端技术，程序吧每个用户的数据以cookie的形式给用户的浏览器。当用户使用浏览器再去访问服务器中的web资源时，就会带着各自的数据去。这样，web资源处理的就是用户各自的数据了。</p>
 <h3 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h3><p>Session是服务器端技术，利用这个技术，服务器在运行时可以为每一个用户的浏览器创建一个器独享的session对象，由于session为用户浏览器独享，所以用户在访问服务器的web资源时，可以把各自的数据放在各自的session中，当用户再去访问服务器中的其它web资源时，其它web资源再从用户各自的session中取出数据为用户服务。</p>
 <h2 id="Java提供的操作Cookie的API"><a href="#Java提供的操作Cookie的API" class="headerlink" title="Java提供的操作Cookie的API"></a>Java提供的操作Cookie的API</h2><p>Java中的javax.servlet.http.Cookie类用于创建一个Cookie</p>
