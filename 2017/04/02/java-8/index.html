@@ -1,0 +1,744 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java Web," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="JSP+JavaBean开发模式jsp+javabean开发模式架构jsp+javabean开发模式架构如下图：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java Web的两种开发模式">
+<meta property="og:url" content="http://bilive.xyz/2017/04/02/java-8/index.html">
+<meta property="og:site_name" content="Surface HexoBlog">
+<meta property="og:description" content="JSP+JavaBean开发模式jsp+javabean开发模式架构jsp+javabean开发模式架构如下图：">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/04/02/58e0acd315d62.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/04/02/58e0b3f20738b.png">
+<meta property="og:updated_time" content="2017-04-04T06:51:59.744Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java Web的两种开发模式">
+<meta name="twitter:description" content="JSP+JavaBean开发模式jsp+javabean开发模式架构jsp+javabean开发模式架构如下图：">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/04/02/58e0acd315d62.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6370918075792885000',
+      author: 'Surface'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://bilive.xyz/2017/04/02/java-8/"/>
+
+
+
+
+
+  <title> Java Web的两种开发模式 | Surface HexoBlog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Surface HexoBlog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description">攻克从入门到放弃系列</h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://bilive.xyz/2017/04/02/java-8/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Surface">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/uploads/avatar.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Surface HexoBlog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Surface HexoBlog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                Java Web的两种开发模式
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-02T14:37:52+08:00">
+                2017-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/04/02/java-8/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/02/java-8/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="JSP-JavaBean开发模式"><a href="#JSP-JavaBean开发模式" class="headerlink" title="JSP+JavaBean开发模式"></a>JSP+JavaBean开发模式</h2><h3 id="jsp-javabean开发模式架构"><a href="#jsp-javabean开发模式架构" class="headerlink" title="jsp+javabean开发模式架构"></a>jsp+javabean开发模式架构</h3><p>jsp+javabean开发模式架构如下图：<br><img src="https://ooo.0o0.ooo/2017/04/02/58e0acd315d62.png" alt="1"><br><a id="more"></a><br>在jsp+javabean架构中，jsp复制控制逻辑、表现逻辑、业务对象(javabean)的调用。<br>JSP+JavaBean模式适合开发不太复杂额web应用程序，这种模式下，javabean用于封装业务数据，JSP即负责处理用户请求，又显示数据。</p>
+<h3 id="JSP-JavaBean开发模式编写计算器"><a href="#JSP-JavaBean开发模式编写计算器" class="headerlink" title="JSP+JavaBean开发模式编写计算器"></a>JSP+JavaBean开发模式编写计算器</h3><p>jsp页面负责显示计算器页面，供用户输入计算数据，并显示计算结果。javabean负责接收用户输入的数据并进行计算。<br>首先编写CalculatorBean，代码如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">public class CalculatorBean &#123;</div><div class="line">	private double firstNum;</div><div class="line">	private double secondNum;</div><div class="line">	private char operator='+';</div><div class="line">	private double result;</div><div class="line">	</div><div class="line">	//省略get/set方法</div><div class="line">	//用于计算</div><div class="line">	public void calculate()&#123;</div><div class="line">		switch(this.operator)&#123;</div><div class="line">		case '+':&#123;</div><div class="line">			this.result=this.firstNum+this.secondNum;</div><div class="line">			break;</div><div class="line">		&#125;</div><div class="line">		case '-':&#123;</div><div class="line">			this.result=this.firstNum-this.secondNum;</div><div class="line">			break;</div><div class="line">		&#125;</div><div class="line">		case '*':&#123;</div><div class="line">			this.result=this.firstNum*this.secondNum;</div><div class="line">			break;</div><div class="line">		&#125;</div><div class="line">		case '/':&#123;</div><div class="line">			if(this.secondNum==0)&#123;</div><div class="line">				throw new RuntimeException("被除数不能为0！");</div><div class="line">			&#125;</div><div class="line">			this.result=this.firstNum/this.secondNum;</div><div class="line">			this.result=new BigDecimal(this.result).</div><div class="line">					setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();</div><div class="line">			break;</div><div class="line">		&#125;</div><div class="line">		default:</div><div class="line">			throw new RuntimeException("对不起，传入的运算符非法！");</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>编写calculator.jsp，负责显示计算页面，供用户输入数据并显示计算后的结果<br>calculator.jsp代码如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">&lt;%@ page language="java" import="java.util.*" pageEncoding="utf-8"%&gt;</div><div class="line">&lt;%</div><div class="line">String path = request.getContextPath();</div><div class="line">String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";</div><div class="line">%&gt;</div><div class="line">&lt;jsp:useBean id="calcBean" class="com.domain.CalculatorBean"&gt;&lt;/jsp:useBean&gt;</div><div class="line">&lt;jsp:setProperty property="*" name="calcBean"/&gt;</div><div class="line">&lt;%</div><div class="line">	calcBean.calculate();</div><div class="line"> %&gt;</div><div class="line">&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;</div><div class="line">&lt;html&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;base href="&lt;%=basePath%&gt;"&gt;</div><div class="line">    </div><div class="line">    &lt;title&gt;My JSP 'index.jsp' starting page&lt;/title&gt;</div><div class="line">	&lt;meta http-equiv="pragma" content="no-cache"&gt;</div><div class="line">	&lt;meta http-equiv="cache-control" content="no-cache"&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">  </div><div class="line">  &lt;body&gt;</div><div class="line">    计算结果是:</div><div class="line">    &lt;jsp:getProperty property="firstNum" name="calcBean"/&gt;</div><div class="line">    &lt;jsp:getProperty property="operator" name="calcBean"/&gt;</div><div class="line">    &lt;jsp:getProperty property="secondNum" name="calcBean"/&gt;</div><div class="line">    	=</div><div class="line">    &lt;jsp:getProperty property="result" name="calcBean"/&gt;</div><div class="line">    &lt;br/&gt;&lt;hr&gt;</div><div class="line">	&lt;form action="$&#123;pageContext.request.contextPath &#125;/index.jsp" method="post"&gt;</div><div class="line">		&lt;table border="1px"&gt;</div><div class="line">			&lt;tr&gt;</div><div class="line">				&lt;td&gt;简单计算器&lt;/td&gt;</div><div class="line">			&lt;/tr&gt;</div><div class="line">			&lt;tr&gt;</div><div class="line">				&lt;td&gt;第一个参数&lt;/td&gt;</div><div class="line">				&lt;td&gt;&lt;input type="text" name="firstNum"&gt;&lt;/td&gt;</div><div class="line">			&lt;/tr&gt;</div><div class="line">			&lt;tr&gt;</div><div class="line">				&lt;td&gt;运算符&lt;/td&gt;</div><div class="line">				&lt;td&gt;&lt;select name="operator"&gt;</div><div class="line">					&lt;option value="+"&gt;+&lt;/option&gt;</div><div class="line">					&lt;option value="-"&gt;-&lt;/option&gt;</div><div class="line">					&lt;option value="*"&gt;*&lt;/option&gt;</div><div class="line">					&lt;option value="/"&gt;/&lt;/option&gt;</div><div class="line">				&lt;/select&gt;</div><div class="line">				&lt;/td&gt;</div><div class="line">			&lt;/tr&gt;</div><div class="line">			&lt;tr&gt;</div><div class="line">				&lt;td&gt;第二个参数&lt;/td&gt;</div><div class="line">				&lt;td&gt;&lt;input type="text" name="secondNum"&gt;&lt;/td&gt;</div><div class="line">			&lt;/tr&gt;</div><div class="line">			&lt;tr&gt;</div><div class="line">				&lt;td colspan="2"&gt;&lt;input type="submit" value="计算"&gt;&lt;/td&gt;</div><div class="line">			&lt;/tr&gt;</div><div class="line">		&lt;/table&gt;</div><div class="line">	&lt;/form&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h2 id="Servlet-JSP-JavaBean开发模式"><a href="#Servlet-JSP-JavaBean开发模式" class="headerlink" title="Servlet+JSP+JavaBean开发模式"></a>Servlet+JSP+JavaBean开发模式</h2><p>在平时的JavaWeb项目中，在不使用第三方mvc开发框架的情况下，通常会选择servlet+jsp+javabean开发模式来开发项目，Servlet+JSP+JavaBean组合就是一种MVC开发模式，控制器（Controller）采用Servlet，模型（Model）采用JavaBean,】，视图（View）采用JSP。</p>
+<h3 id="标准MVC模型概述"><a href="#标准MVC模型概述" class="headerlink" title="标准MVC模型概述"></a>标准MVC模型概述</h3><p>MVC模型：是一种架构模式，本身不引入新功能，只是帮我们将开发的结构组织变的更加合理，使展示与模型分离、流程控制逻辑、业务逻辑调用与展示逻辑分离。如下图：<br><img src="https://ooo.0o0.ooo/2017/04/02/58e0b3f20738b.png" alt="2"></p>
+<h3 id="MVC的概念"><a href="#MVC的概念" class="headerlink" title="MVC的概念"></a>MVC的概念</h3><ul>
+<li>Model（模型）：数据模型，提供要展示的数据，因此包含数据和行为，可以认为是领域模型或JavaBean组件（包含数据和行为），不过现在一般都分离开来：Value Object（数据）和服务层（行为）。也就是模型提供了模型数据查询和模型数据的状态更新等功能，包括数据和业务。</li>
+<li>View（视图）：负责进行模型的展示。</li>
+<li>Controller（控制器）：接收用户请求，委托给模型进行处理（状态改变），处理完毕后把返回的模型数据返回给视图，由视图负责展示。</li>
+</ul>
+<h3 id="Servlet-JSP-JavaBean开发模式的用户登录"><a href="#Servlet-JSP-JavaBean开发模式的用户登录" class="headerlink" title="Servlet+JSP+JavaBean开发模式的用户登录"></a>Servlet+JSP+JavaBean开发模式的用户登录</h3><p>用Servlet+JSP+JavaBean进行简单的登录测试。实现注册、登录和注销功能，实例源码已放至<a href="https://github.com/bilive-xyz/java-study/blob/master/WebLogin.zip" target="_blank" rel="external">github</a>。</p>
+<hr>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java-Web/" rel="tag"># Java Web</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/28/java-7/" rel="next" title="Java反射机制">
+                <i class="fa fa-chevron-left"></i> Java反射机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/04/java-9/" rel="prev" title="MySQL学习笔记之MySQL语法">
+                MySQL学习笔记之MySQL语法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/04/02/java-8/"
+           data-title="Java Web的两种开发模式" data-url="http://bilive.xyz/2017/04/02/java-8/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="Surface" />
+          <p class="site-author-name" itemprop="name">Surface</p>
+          <p class="site-description motion-element" itemprop="description">把时间浪费在美好的事物上</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JSP-JavaBean开发模式"><span class="nav-number">1.</span> <span class="nav-text">JSP+JavaBean开发模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jsp-javabean开发模式架构"><span class="nav-number">1.1.</span> <span class="nav-text">jsp+javabean开发模式架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP-JavaBean开发模式编写计算器"><span class="nav-number">1.2.</span> <span class="nav-text">JSP+JavaBean开发模式编写计算器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet-JSP-JavaBean开发模式"><span class="nav-number">2.</span> <span class="nav-text">Servlet+JSP+JavaBean开发模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标准MVC模型概述"><span class="nav-number">2.1.</span> <span class="nav-text">标准MVC模型概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MVC的概念"><span class="nav-number">2.2.</span> <span class="nav-text">MVC的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Servlet-JSP-JavaBean开发模式的用户登录"><span class="nav-number">2.3.</span> <span class="nav-text">Servlet+JSP+JavaBean开发模式的用户登录</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Surface</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  Thème -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"bilive"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js?v=5.1.0"></script>
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
